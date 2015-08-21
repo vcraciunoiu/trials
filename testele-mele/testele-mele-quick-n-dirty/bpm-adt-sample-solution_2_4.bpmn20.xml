@@ -1,0 +1,418 @@
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:uipcpmask="urn:com:oneandone:swis:pcp:masked:1.0" xmlns:uipcpmeta="urn:com:oneandone:swis:pcp:processmetadata:1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="7.2.0" expressionLanguage="http://www.w3.org/1999/XPath" id="sid-5e170177-9749-4826-bdec-987c186fbf7d" name="L3 Classic Hosting Mexico Fulfill Offer Purchase" targetNamespace="http://www.signavio.com/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema" uipcpmeta:author="Mehmet Sürü" uipcpmeta:authordepartment="Development Technology &amp;amp;amp; Architecture" uipcpmeta:downloadfrom="http://bizmod.schlund.de" uipcpmeta:id="daac4e9c58f546e595d7c9b009c5e419" uipcpmeta:l0process="Order-to-Fulfillment" uipcpmeta:l1process="Fulfill Offer Purchase" uipcpmeta:lastupdate="2013-09-12 13:23:02 +0200" uipcpmeta:market="Mexico" uipcpmeta:newestversion="true" uipcpmeta:processname="L3 Classic Hosting Mexico Fulfill Offer Purchase" uipcpmeta:processtype="L3 (End-to-End)" uipcpmeta:processversion="" uipcpmeta:product="Classic Hosting" uipcpmeta:revision="13" uipcpmeta:revisionid="2417dfea075e4e99acf83e4cf36ecf4d" uipcpmeta:signavioname="L3 Fulfill Offer Purchase Classic Hosting Mexico - Sample Solution automation" uipcpmeta:transformed="2013-09-13 09:25:06" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <globalTask id="sid-5476dc3a-7926-4383-8c8e-aa1e2acf14dd" name="CCD: &#10;Deactivate customer"/>
+   <globalTask id="sid-b712aace-db83-4ff5-8352-4a062aa6324d" name="Fraud Service:&#10;Check fraud"/>
+   <globalTask id="sid-4635e0d3-1a81-46d3-8953-5acd6b66e58b" name="SSE: Write HistoryActionLog (Fraud not ok)"/>
+   <globalTask id="sid-5b230b49-75a9-454b-a0b0-ab9ad52706bd" name="CCD: &#10;Create customer"/>
+   <globalTask id="sid-f7b1b9f7-c7fd-4d30-81a8-03049758d341" name="SSE: Write HistoryActionLog (no payment)"/>
+   <collaboration id="sid-8caeb58a-289f-4284-83e0-6cb5c58290e2">
+      <extensionElements>
+         <signavio:signavioDiagramMetaData metaKey="03status" metaValue="ready and published"/>
+         <signavio:signavioDiagramMetaData metaKey="businessarea" metaValue="Hosting"/>
+         <signavio:signavioDiagramMetaData metaKey="processengineer" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="executable" metaValue="true"/>
+         <signavio:signavioDiagramMetaData metaKey="level2market" metaValue="Mexico"/>
+         <signavio:signavioDiagramMetaData metaKey="product" metaValue="Classic Hosting"/>
+         <signavio:signavioDiagramMetaData metaKey="processtype" metaValue="L3 (End-to-End)"/>
+         <signavio:signavioDiagramMetaData metaKey="projectnumber" metaValue="HOST.1063"/>
+         <signavio:signavioDiagramMetaData metaKey="processmanagerbuild" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="level1mainprocess" metaValue="Fulfill Offer Purchase"/>
+         <signavio:signavioDiagramMetaData metaKey="processdesigner" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="mainprocesslevel01" metaValue="Order-to-Fulfillment"/>
+      </extensionElements>
+      <participant id="sid-13A91038-A19F-4227-A5C7-3220F4EC4137" name="L3 Classic Hosting Mexico Fulfill Offer Purchase" processRef="bpm-adt-sample-solution_2_4">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+      </participant>
+   </collaboration>
+   <process id="bpm-adt-sample-solution_2_4" isClosed="false" isExecutable="true" name="L3 Classic Hosting Mexico Fulfill Offer Purchase" processType="None">
+      <extensionElements/>
+      <laneSet id="sid-3ed3c87e-c7bf-417a-958d-9f2011b8fdf1">
+         <lane id="sid-3CC77C58-E7DC-47CA-877D-37B50DCE2F4C">
+            <extensionElements>
+               <signavio:signavioMetaData metaKey="bgcolor" metaValue=""/>
+            </extensionElements>
+            <flowNodeRef>sid-32B20499-0883-4983-B6F4-B318E0E45CB4</flowNodeRef>
+            <flowNodeRef>sid-36F15DF5-00D1-492F-A4AD-B00E9442C40C</flowNodeRef>
+            <flowNodeRef>sid-D2CD392D-BC16-4EB8-B61C-8E37FC91C809</flowNodeRef>
+            <flowNodeRef>sid-0BB0220E-CEE9-4ECC-B3D8-28A3065D0410</flowNodeRef>
+            <flowNodeRef>sid-5DC9A84E-20DD-448B-A632-22D85D20EA3D</flowNodeRef>
+            <flowNodeRef>sid-6AB47BFC-6FF1-4C81-9CDF-6A27F2F1E10A</flowNodeRef>
+            <flowNodeRef>sid-54B6D924-F754-4EE5-BE61-FC1E83102606</flowNodeRef>
+            <flowNodeRef>sid-032F29F3-D2C7-4AF3-96CF-F0A1640C23BE</flowNodeRef>
+            <flowNodeRef>sid-CA105B08-436B-4575-95A7-7F5752EFBD88</flowNodeRef>
+            <flowNodeRef>sid-10200EC4-82FE-4153-83BB-79B659D2502D</flowNodeRef>
+            <flowNodeRef>sid-E7977DA3-34E6-478A-852F-4BADFCF811C7</flowNodeRef>
+            <flowNodeRef>sid-0CB4A157-DA5D-4ABA-A30F-CCB72331690E</flowNodeRef>
+            <flowNodeRef>sid-FCCADC89-4BCB-4DC5-A687-DD7451AA13CF</flowNodeRef>
+            <flowNodeRef>sid-65738188-A23E-4BCE-B25D-4212B3029F69</flowNodeRef>
+            <flowNodeRef>sid-68D9AAD6-A304-4C11-9D7F-64EA3EE3A731</flowNodeRef>
+            <flowNodeRef>sid-5A2EFB88-4A26-401A-ACAF-F7AD58A4C07B</flowNodeRef>
+            <flowNodeRef>sid-880ABC44-B294-4241-8DC2-33B82B979880</flowNodeRef>
+         </lane>
+      </laneSet>
+      <serviceTask activiti:async="true" activiti:class="com.oneandone.coredev.swistec.psi.binding.activiti.GatewayAdapterDecisionDelegate" id="sid-32B20499-0883-4983-B6F4-B318E0E45CB4" name="New&#10;customer?" uipcpmask:gatewayDirection="Diverging" uipcpmeta:originType="exclusiveGateway">
+         <extensionElements>
+            <signavio:signavioLabel align="center" bottom="false" left="false" ref="text_name" right="false" top="true" valign="bottom" x="20.0" y="-9.0"/>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFFF"/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue="PSI Adapter"/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue="com.oneandone.swistec.bpm.adt.samplesolution.NewCustomerGatewayAdapter"/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+         <activiti:field name="gatewayAdapter"><activiti:string>com.oneandone.swistec.bpm.adt.samplesolution.NewCustomerGatewayAdapter</activiti:string></activiti:field></extensionElements>
+         <incoming>sid-AA08A4BA-A3BF-41F3-A453-3526FF531107</incoming>
+         <outgoing>sid-79AE51F9-C8A9-4306-AB68-CFE2654E67A1</outgoing>
+         <outgoing>sid-C2719382-AAB1-4013-8FC1-FBDA45993DC2</outgoing>
+      </serviceTask>
+      <exclusiveGateway activiti:async="true" gatewayDirection="Converging" id="sid-36F15DF5-00D1-492F-A4AD-B00E9442C40C" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFFF"/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue=""/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue=""/>
+         </extensionElements>
+         <incoming>sid-EB198879-2456-4439-A942-664604BBD427</incoming>
+         <incoming>sid-C2719382-AAB1-4013-8FC1-FBDA45993DC2</incoming>
+         <outgoing>sid-13BB8654-E3F9-4FBF-9A55-49DB6B4B8E2C</outgoing>
+      </exclusiveGateway>
+      <serviceTask activiti:async="true" activiti:class="com.oneandone.coredev.swistec.psi.binding.activiti.ExecuteServiceAdapterDelegate" completionQuantity="1" id="sid-D2CD392D-BC16-4EB8-B61C-8E37FC91C809" isForCompensation="false" name="Fraud Service:&#10;Check fraud" startQuantity="1" uipcpmask:calledElement="sid-b712aace-db83-4ff5-8352-4a062aa6324d" uipcpmeta:originType="callActivity">
+         <extensionElements>
+            <signavio:signavioStencil id="Task"/>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue="PSI Request Adapter"/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue="com.oneandone.swistec.bpm.adt.samplesolution.CheckFraudServiceAdapter"/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         <activiti:field name="serviceRequestAdapter"><activiti:string>com.oneandone.swistec.bpm.adt.samplesolution.CheckFraudServiceAdapter</activiti:string></activiti:field></extensionElements>
+         <incoming>sid-13BB8654-E3F9-4FBF-9A55-49DB6B4B8E2C</incoming>
+         <outgoing>sid-6BACB828-25B7-4994-B957-E34B94E9C717</outgoing>
+      </serviceTask>
+      <serviceTask activiti:async="true" activiti:class="com.oneandone.coredev.swistec.psi.binding.activiti.ExecuteServiceAdapterDelegate" completionQuantity="1" id="sid-0BB0220E-CEE9-4ECC-B3D8-28A3065D0410" isForCompensation="false" name="CCD: &#10;Create customer" startQuantity="1" uipcpmask:calledElement="sid-5b230b49-75a9-454b-a0b0-ab9ad52706bd" uipcpmeta:originType="callActivity">
+         <extensionElements>
+            <signavio:signavioStencil id="Task"/>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue="PSI Adapter"/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue="com.oneandone.swistec.bpm.adt.samplesolution.CreateCustomerAdapter"/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         <activiti:field name="serviceAdapter"><activiti:string>com.oneandone.swistec.bpm.adt.samplesolution.CreateCustomerAdapter</activiti:string></activiti:field></extensionElements>
+         <incoming>sid-79AE51F9-C8A9-4306-AB68-CFE2654E67A1</incoming>
+         <outgoing>sid-EB198879-2456-4439-A942-664604BBD427</outgoing>
+      </serviceTask>
+      <serviceTask activiti:async="true" activiti:class="com.oneandone.coredev.swistec.psi.binding.activiti.ExecuteServiceAdapterDelegate" completionQuantity="1" id="sid-5DC9A84E-20DD-448B-A632-22D85D20EA3D" isForCompensation="false" name="CCD: &#10;Check customer" startQuantity="1" uipcpmeta:originType="task">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue="&#10;"/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue="PSI Adapter"/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue="&#10;"/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue="com.oneandone.swistec.bpm.adt.samplesolution.CheckCustomerAdapter"/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         <activiti:field name="serviceAdapter"><activiti:string>com.oneandone.swistec.bpm.adt.samplesolution.CheckCustomerAdapter</activiti:string></activiti:field></extensionElements>
+         <incoming>sid-740F1EDA-DEDD-431F-935E-713C0705DC4C</incoming>
+         <outgoing>sid-AA08A4BA-A3BF-41F3-A453-3526FF531107</outgoing>
+      </serviceTask>
+      <endEvent id="sid-6AB47BFC-6FF1-4C81-9CDF-6A27F2F1E10A" name="Fulfillment &#10;successful">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <incoming>sid-151FE662-D779-4451-9417-169C69EE0078</incoming>
+      </endEvent>
+      <serviceTask activiti:async="true" activiti:class="com.oneandone.coredev.swistec.psi.binding.activiti.GatewayAdapterDecisionDelegate" id="sid-54B6D924-F754-4EE5-BE61-FC1E83102606" name="Fraud Check&#10;result?" uipcpmask:gatewayDirection="Diverging" uipcpmeta:originType="exclusiveGateway">
+         <extensionElements>
+            <signavio:signavioLabel align="center" bottom="false" left="false" ref="text_name" right="false" top="true" valign="bottom" x="20.0" y="-9.0"/>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue="PSI Adapter"/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue="com.oneandone.swistec.bpm.adt.samplesolution.FraudGatewayAdapter"/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+         <activiti:field name="gatewayAdapter"><activiti:string>com.oneandone.swistec.bpm.adt.samplesolution.FraudGatewayAdapter</activiti:string></activiti:field></extensionElements>
+         <incoming>sid-8FD91E33-02A5-4CF4-9EC0-FA6367A9AA7B</incoming>
+         <outgoing>sid-F320F832-E82C-4B08-A604-79A10765A0CE</outgoing>
+         <outgoing>sid-141D1CA9-44D5-445D-9A20-BFC561B77E1A</outgoing>
+      </serviceTask>
+      <callActivity activiti:async="true" calledElement="sid-4635e0d3-1a81-46d3-8953-5acd6b66e58b" completionQuantity="1" id="sid-032F29F3-D2C7-4AF3-96CF-F0A1640C23BE" isForCompensation="false" name="SSE: Write HistoryActionLog (Fraud not ok)" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioStencil id="Task"/>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue=""/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         </extensionElements>
+         <incoming>sid-141D1CA9-44D5-445D-9A20-BFC561B77E1A</incoming>
+         <outgoing>sid-18B0DE15-5F98-4BF4-9FC1-9AD617B1D01B</outgoing>
+      </callActivity>
+      <callActivity activiti:async="true" calledElement="sid-5476dc3a-7926-4383-8c8e-aa1e2acf14dd" completionQuantity="1" id="sid-CA105B08-436B-4575-95A7-7F5752EFBD88" isForCompensation="false" name="CCD: &#10;Deactivate customer" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioStencil id="Task"/>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue=""/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         </extensionElements>
+         <incoming>sid-18B0DE15-5F98-4BF4-9FC1-9AD617B1D01B</incoming>
+         <outgoing>sid-ADA25F00-D41E-4F3A-B9B8-49EB065074F3</outgoing>
+      </callActivity>
+      <callActivity activiti:async="true" calledElement="sid-f7b1b9f7-c7fd-4d30-81a8-03049758d341" completionQuantity="1" id="sid-10200EC4-82FE-4153-83BB-79B659D2502D" isForCompensation="false" name="SSE: Write HistoryActionLog (no payment)" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioStencil id="Task"/>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue=""/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         </extensionElements>
+         <incoming>sid-7554DBB1-7EA4-4C04-907D-75352EA206C5</incoming>
+         <outgoing>sid-D6707A47-8192-4D79-A58E-FDD3E9D3CCFD</outgoing>
+      </callActivity>
+      <task activiti:async="true" completionQuantity="1" id="sid-E7977DA3-34E6-478A-852F-4BADFCF811C7" isForCompensation="false" name="Provision services" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue=""/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         </extensionElements>
+         <incoming>sid-D3B83D9A-32FF-4E1E-8837-1ACE26811B28</incoming>
+         <outgoing>sid-151FE662-D779-4451-9417-169C69EE0078</outgoing>
+      </task>
+      <endEvent id="sid-0CB4A157-DA5D-4ABA-A30F-CCB72331690E" name="Fraud not ok">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <incoming>sid-ADA25F00-D41E-4F3A-B9B8-49EB065074F3</incoming>
+      </endEvent>
+      <task activiti:async="true" completionQuantity="1" id="sid-FCCADC89-4BCB-4DC5-A687-DD7451AA13CF" isForCompensation="false" name=" Check payment" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#FFFFCC"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue=""/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue="false"/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         </extensionElements>
+         <incoming>sid-F320F832-E82C-4B08-A604-79A10765A0CE</incoming>
+         <outgoing>sid-D3B83D9A-32FF-4E1E-8837-1ACE26811B28</outgoing>
+      </task>
+      <endEvent id="sid-65738188-A23E-4BCE-B25D-4212B3029F69" name="Fulfillment failed &#10;(No payment)&#10;Inform Customer Care">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <incoming>sid-D6707A47-8192-4D79-A58E-FDD3E9D3CCFD</incoming>
+      </endEvent>
+      <intermediateCatchEvent id="sid-68D9AAD6-A304-4C11-9D7F-64EA3EE3A731" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <outgoing>sid-7554DBB1-7EA4-4C04-907D-75352EA206C5</outgoing>
+         <timerEventDefinition id="sid-db5bc8b2-f1d5-4563-9f3e-f2b1f377115b">
+            <timeDuration id="sid-cff5dab5-6445-46eb-8997-9426e8e2e7ce" xsi:type="tFormalExpression">1 day</timeDuration>
+         </timerEventDefinition>
+      </intermediateCatchEvent>
+      <serviceTask activiti:async="true" activiti:class="com.oneandone.coredev.swistec.psi.binding.activiti.ExecuteServiceAdapterDelegate" completionQuantity="1" id="sid-5A2EFB88-4A26-401A-ACAF-F7AD58A4C07B" isForCompensation="false" name="Fraud Service: Handle Fraud Response" startQuantity="1" uipcpmeta:originType="task">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+            <signavio:signavioMetaData metaKey="taskrelatedriskcontrol" metaValue=""/>
+            <signavio:signavioMetaData metaKey="psiconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="communicationtype" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adaptertype" metaValue="PSI Response Adapter"/>
+            <signavio:signavioMetaData metaKey="adapterconfiguration" metaValue=""/>
+            <signavio:signavioMetaData metaKey="adapterclassname" metaValue="com.oneandone.swistec.bpm.adt.samplesolution.HandleFraudResponseAdapter"/>
+            <signavio:signavioMetaData metaKey="synchronousexecutionjbpm" metaValue=""/>
+            <signavio:signavioMetaData metaKey="executiontimefreetext" metaValue=""/>
+         <activiti:field name="serviceResponseAdapter"><activiti:string>com.oneandone.swistec.bpm.adt.samplesolution.HandleFraudResponseAdapter</activiti:string></activiti:field></extensionElements>
+         <incoming>sid-6BACB828-25B7-4994-B957-E34B94E9C717</incoming>
+         <outgoing>sid-8FD91E33-02A5-4CF4-9EC0-FA6367A9AA7B</outgoing>
+      </serviceTask>
+      <startEvent id="sid-880ABC44-B294-4241-8DC2-33B82B979880" isInterrupting="true" name="Order is valid &#10;and persisted">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <outgoing>sid-740F1EDA-DEDD-431F-935E-713C0705DC4C</outgoing>
+      </startEvent>
+      <sequenceFlow id="sid-13BB8654-E3F9-4FBF-9A55-49DB6B4B8E2C" name="" sourceRef="sid-36F15DF5-00D1-492F-A4AD-B00E9442C40C" targetRef="sid-D2CD392D-BC16-4EB8-B61C-8E37FC91C809"/>
+      <sequenceFlow id="sid-AA08A4BA-A3BF-41F3-A453-3526FF531107" name="" sourceRef="sid-5DC9A84E-20DD-448B-A632-22D85D20EA3D" targetRef="sid-32B20499-0883-4983-B6F4-B318E0E45CB4"/>
+      <sequenceFlow id="sid-D3B83D9A-32FF-4E1E-8837-1ACE26811B28" name="" sourceRef="sid-FCCADC89-4BCB-4DC5-A687-DD7451AA13CF" targetRef="sid-E7977DA3-34E6-478A-852F-4BADFCF811C7"/>
+      <sequenceFlow id="sid-18B0DE15-5F98-4BF4-9FC1-9AD617B1D01B" name="" sourceRef="sid-032F29F3-D2C7-4AF3-96CF-F0A1640C23BE" targetRef="sid-CA105B08-436B-4575-95A7-7F5752EFBD88"/>
+      <sequenceFlow id="sid-EB198879-2456-4439-A942-664604BBD427" name="" sourceRef="sid-0BB0220E-CEE9-4ECC-B3D8-28A3065D0410" targetRef="sid-36F15DF5-00D1-492F-A4AD-B00E9442C40C"/>
+      <sequenceFlow id="sid-151FE662-D779-4451-9417-169C69EE0078" name="" sourceRef="sid-E7977DA3-34E6-478A-852F-4BADFCF811C7" targetRef="sid-6AB47BFC-6FF1-4C81-9CDF-6A27F2F1E10A"/>
+      <sequenceFlow id="sid-D6707A47-8192-4D79-A58E-FDD3E9D3CCFD" name="" sourceRef="sid-10200EC4-82FE-4153-83BB-79B659D2502D" targetRef="sid-65738188-A23E-4BCE-B25D-4212B3029F69"/>
+      <sequenceFlow id="sid-ADA25F00-D41E-4F3A-B9B8-49EB065074F3" name="" sourceRef="sid-CA105B08-436B-4575-95A7-7F5752EFBD88" targetRef="sid-0CB4A157-DA5D-4ABA-A30F-CCB72331690E"/>
+      <sequenceFlow id="sid-740F1EDA-DEDD-431F-935E-713C0705DC4C" name="" sourceRef="sid-880ABC44-B294-4241-8DC2-33B82B979880" targetRef="sid-5DC9A84E-20DD-448B-A632-22D85D20EA3D"/>
+      <sequenceFlow id="sid-7554DBB1-7EA4-4C04-907D-75352EA206C5" name="" sourceRef="sid-68D9AAD6-A304-4C11-9D7F-64EA3EE3A731" targetRef="sid-10200EC4-82FE-4153-83BB-79B659D2502D"/>
+      <sequenceFlow id="sid-79AE51F9-C8A9-4306-AB68-CFE2654E67A1" name="YES" sourceRef="sid-32B20499-0883-4983-B6F4-B318E0E45CB4" targetRef="sid-0BB0220E-CEE9-4ECC-B3D8-28A3065D0410">
+         <extensionElements>
+            <signavio:signavioLabel align="left" distance="-5.991316" from="1" orientation="ur" ref="text_name" to="2" valign="top" x="380.93388973013697" y="281.7000906228293"/>
+         </extensionElements>
+      </sequenceFlow>
+      <sequenceFlow id="sid-C2719382-AAB1-4013-8FC1-FBDA45993DC2" name="NO" sourceRef="sid-32B20499-0883-4983-B6F4-B318E0E45CB4" targetRef="sid-36F15DF5-00D1-492F-A4AD-B00E9442C40C"/>
+      <sequenceFlow id="sid-F320F832-E82C-4B08-A604-79A10765A0CE" name="true" sourceRef="sid-54B6D924-F754-4EE5-BE61-FC1E83102606" targetRef="sid-FCCADC89-4BCB-4DC5-A687-DD7451AA13CF"/>
+      <sequenceFlow id="sid-141D1CA9-44D5-445D-9A20-BFC561B77E1A" name="false" sourceRef="sid-54B6D924-F754-4EE5-BE61-FC1E83102606" targetRef="sid-032F29F3-D2C7-4AF3-96CF-F0A1640C23BE"/>
+      <sequenceFlow id="sid-8FD91E33-02A5-4CF4-9EC0-FA6367A9AA7B" name="" sourceRef="sid-5A2EFB88-4A26-401A-ACAF-F7AD58A4C07B" targetRef="sid-54B6D924-F754-4EE5-BE61-FC1E83102606"/>
+      <sequenceFlow id="sid-6BACB828-25B7-4994-B957-E34B94E9C717" name="" sourceRef="sid-D2CD392D-BC16-4EB8-B61C-8E37FC91C809" targetRef="sid-5A2EFB88-4A26-401A-ACAF-F7AD58A4C07B"/>
+   </process>
+   <bpmndi:BPMNDiagram id="sid-73cf9d73-0617-4d32-bd66-aa0d86f3d82b">
+      <bpmndi:BPMNPlane bpmnElement="sid-8caeb58a-289f-4284-83e0-6cb5c58290e2" id="sid-f846e788-fa93-4dfa-962c-24373ce31d3d">
+         <bpmndi:BPMNShape bpmnElement="sid-13A91038-A19F-4227-A5C7-3220F4EC4137" id="sid-13A91038-A19F-4227-A5C7-3220F4EC4137_gui" isHorizontal="true">
+            <omgdc:Bounds height="434.47660437187545" width="1443.321619985716" x="32.21020076334332" y="45.38710107562014"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-3CC77C58-E7DC-47CA-877D-37B50DCE2F4C" id="sid-3CC77C58-E7DC-47CA-877D-37B50DCE2F4C_gui" isHorizontal="true">
+            <omgdc:Bounds height="434.47660437187545" width="1413.321619985716" x="62.21020076334332" y="45.38710107562014"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-32B20499-0883-4983-B6F4-B318E0E45CB4" id="sid-32B20499-0883-4983-B6F4-B318E0E45CB4_gui" isMarkerVisible="true">
+            <omgdc:Bounds height="40.0" width="40.0" x="352.0" y="144.89489770104072"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-36F15DF5-00D1-492F-A4AD-B00E9442C40C" id="sid-36F15DF5-00D1-492F-A4AD-B00E9442C40C_gui" isMarkerVisible="true">
+            <omgdc:Bounds height="40.0" width="40.0" x="511.0" y="144.1436459928808"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-D2CD392D-BC16-4EB8-B61C-8E37FC91C809" id="sid-D2CD392D-BC16-4EB8-B61C-8E37FC91C809_gui">
+            <omgdc:Bounds height="79.99999999999997" width="100.0" x="585.9159988547375" y="124.29834538147082"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-0BB0220E-CEE9-4ECC-B3D8-28A3065D0410" id="sid-0BB0220E-CEE9-4ECC-B3D8-28A3065D0410_gui">
+            <omgdc:Bounds height="79.99999999999997" width="100.0" x="399.29999045614625" y="241.70009062282932"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-5DC9A84E-20DD-448B-A632-22D85D20EA3D" id="sid-5DC9A84E-20DD-448B-A632-22D85D20EA3D_gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="195.0" y="125.29834538147082"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-6AB47BFC-6FF1-4C81-9CDF-6A27F2F1E10A" id="sid-6AB47BFC-6FF1-4C81-9CDF-6A27F2F1E10A_gui">
+            <omgdc:Bounds height="28.0" width="28.0" x="1369.0" y="149.50417114395586"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-54B6D924-F754-4EE5-BE61-FC1E83102606" id="sid-54B6D924-F754-4EE5-BE61-FC1E83102606_gui" isMarkerVisible="true">
+            <omgdc:Bounds height="40.0" width="40.0" x="900.0" y="144.1436459928808"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-032F29F3-D2C7-4AF3-96CF-F0A1640C23BE" id="sid-032F29F3-D2C7-4AF3-96CF-F0A1640C23BE_gui">
+            <omgdc:Bounds height="75.04424778761063" width="99.99999999999989" x="993.2874794817303" y="354.59278588275106"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-CA105B08-436B-4575-95A7-7F5752EFBD88" id="sid-CA105B08-436B-4575-95A7-7F5752EFBD88_gui">
+            <omgdc:Bounds height="75.04424778761063" width="100.0" x="1161.0717999306053" y="356.59278588275106"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-10200EC4-82FE-4153-83BB-79B659D2502D" id="sid-10200EC4-82FE-4153-83BB-79B659D2502D_gui">
+            <omgdc:Bounds height="75.04424778761054" width="100.0" x="1161.0717999306053" y="239.5453912342393"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-E7977DA3-34E6-478A-852F-4BADFCF811C7" id="sid-E7977DA3-34E6-478A-852F-4BADFCF811C7_gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="1161.0717999306053" y="123.50417114395586"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-0CB4A157-DA5D-4ABA-A30F-CCB72331690E" id="sid-0CB4A157-DA5D-4ABA-A30F-CCB72331690E_gui">
+            <omgdc:Bounds height="28.0" width="28.0" x="1369.0" y="380.1149097765564"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-FCCADC89-4BCB-4DC5-A687-DD7451AA13CF" id="sid-FCCADC89-4BCB-4DC5-A687-DD7451AA13CF_gui">
+            <omgdc:Bounds height="80.0" width="99.99999999999989" x="996.3592794123356" y="123.50417114395586"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-65738188-A23E-4BCE-B25D-4212B3029F69" id="sid-65738188-A23E-4BCE-B25D-4212B3029F69_gui">
+            <omgdc:Bounds height="28.0" width="28.0" x="1369.035000477193" y="263.74543684856474"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-68D9AAD6-A304-4C11-9D7F-64EA3EE3A731" id="sid-68D9AAD6-A304-4C11-9D7F-64EA3EE3A731_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="1050.0" y="188.50417114395583"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-5A2EFB88-4A26-401A-ACAF-F7AD58A4C07B" id="sid-5A2EFB88-4A26-401A-ACAF-F7AD58A4C07B_gui">
+            <omgdc:Bounds height="80.0" width="100.0" x="748.0" y="124.1436459928808"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-880ABC44-B294-4241-8DC2-33B82B979880" id="sid-880ABC44-B294-4241-8DC2-33B82B979880_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="95.4299990456145" y="149.79751837511702"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNEdge bpmnElement="sid-6BACB828-25B7-4994-B957-E34B94E9C717" id="sid-6BACB828-25B7-4994-B957-E34B94E9C717_gui">
+            <omgdi:waypoint x="685.9159988547375" y="164.22099568717582"/>
+            <omgdi:waypoint x="748.0" y="164.22099568717582"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-D3B83D9A-32FF-4E1E-8837-1ACE26811B28" id="sid-D3B83D9A-32FF-4E1E-8837-1ACE26811B28_gui">
+            <omgdi:waypoint x="1096.3592794123356" y="163.50417114395586"/>
+            <omgdi:waypoint x="1161.0717999306053" y="163.50417114395586"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-8FD91E33-02A5-4CF4-9EC0-FA6367A9AA7B" id="sid-8FD91E33-02A5-4CF4-9EC0-FA6367A9AA7B_gui">
+            <omgdi:waypoint x="848.0" y="164.34772762553388"/>
+            <omgdi:waypoint x="900.0" y="164.55997252349306"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-740F1EDA-DEDD-431F-935E-713C0705DC4C" id="sid-740F1EDA-DEDD-431F-935E-713C0705DC4C_gui">
+            <omgdi:waypoint x="125.4299990456145" y="165.31219701895066"/>
+            <omgdi:waypoint x="195.0" y="165.30413765267986"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-18B0DE15-5F98-4BF4-9FC1-9AD617B1D01B" id="sid-18B0DE15-5F98-4BF4-9FC1-9AD617B1D01B_gui">
+            <omgdi:waypoint x="1093.2874794817303" y="392.0274214084512"/>
+            <omgdi:waypoint x="1161.0717999306053" y="391.89109176295256"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-13BB8654-E3F9-4FBF-9A55-49DB6B4B8E2C" id="sid-13BB8654-E3F9-4FBF-9A55-49DB6B4B8E2C_gui">
+            <omgdi:waypoint x="551.0" y="164.1731361355242"/>
+            <omgdi:waypoint x="585.9159988547375" y="164.22462002486233"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-141D1CA9-44D5-445D-9A20-BFC561B77E1A" id="sid-141D1CA9-44D5-445D-9A20-BFC561B77E1A_gui">
+            <omgdi:waypoint x="920.0" y="184.1436459928808"/>
+            <omgdi:waypoint x="920.0" y="392.1149097765564"/>
+            <omgdi:waypoint x="993.2874794817303" y="392.1149097765564"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-7554DBB1-7EA4-4C04-907D-75352EA206C5" id="sid-7554DBB1-7EA4-4C04-907D-75352EA206C5_gui">
+            <omgdi:waypoint x="1065.0" y="218.50417114395583"/>
+            <omgdi:waypoint x="1065.0" y="277.06751512804453"/>
+            <omgdi:waypoint x="1161.0717999306053" y="277.0675151280446"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-151FE662-D779-4451-9417-169C69EE0078" id="sid-151FE662-D779-4451-9417-169C69EE0078_gui">
+            <omgdi:waypoint x="1261.0717999306053" y="163.50417114395586"/>
+            <omgdi:waypoint x="1369.0" y="163.50417114395586"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-EB198879-2456-4439-A942-664604BBD427" id="sid-EB198879-2456-4439-A942-664604BBD427_gui">
+            <omgdi:waypoint x="499.29999045614625" y="281.7000906228293"/>
+            <omgdi:waypoint x="531.5" y="281.7000906228293"/>
+            <omgdi:waypoint x="531.5" y="184.1436459928808"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-79AE51F9-C8A9-4306-AB68-CFE2654E67A1" id="sid-79AE51F9-C8A9-4306-AB68-CFE2654E67A1_gui">
+            <omgdi:waypoint x="372.5" y="184.89489770104072"/>
+            <omgdi:waypoint x="372.5" y="281.7000906228293"/>
+            <omgdi:waypoint x="399.29999045614625" y="281.7000906228293"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-D6707A47-8192-4D79-A58E-FDD3E9D3CCFD" id="sid-D6707A47-8192-4D79-A58E-FDD3E9D3CCFD_gui">
+            <omgdi:waypoint x="1261.0717999306053" y="277.32358372729794"/>
+            <omgdi:waypoint x="1369.035000477193" y="277.8765034379955"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-C2719382-AAB1-4013-8FC1-FBDA45993DC2" id="sid-C2719382-AAB1-4013-8FC1-FBDA45993DC2_gui">
+            <omgdi:waypoint x="392.0" y="165.34204255545248"/>
+            <omgdi:waypoint x="511.0" y="165.01949064134993"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-F320F832-E82C-4B08-A604-79A10765A0CE" id="sid-F320F832-E82C-4B08-A604-79A10765A0CE_gui">
+            <omgdi:waypoint x="940.0" y="164.04243065643715"/>
+            <omgdi:waypoint x="996.3592794123356" y="163.75720948506503"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-AA08A4BA-A3BF-41F3-A453-3526FF531107" id="sid-AA08A4BA-A3BF-41F3-A453-3526FF531107_gui">
+            <omgdi:waypoint x="295.0" y="165.13950771201016"/>
+            <omgdi:waypoint x="352.0" y="164.958432768825"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-ADA25F00-D41E-4F3A-B9B8-49EB065074F3" id="sid-ADA25F00-D41E-4F3A-B9B8-49EB065074F3_gui">
+            <omgdi:waypoint x="1261.0717999306053" y="394.1149097765564"/>
+            <omgdi:waypoint x="1369.0" y="394.1149097765564"/>
+         </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+   </bpmndi:BPMNDiagram>
+</definitions>

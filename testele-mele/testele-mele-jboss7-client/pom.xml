@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>gigi</groupId>
+    <artifactId>testele-mele</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>testele-mele-jboss-client</artifactId>
+  <dependencies>
+  	
+  	<!-- <dependency>
+  		<groupId>org.jboss.javaee</groupId>
+  		<artifactId>jboss-jms-api</artifactId>
+  		<version>1.1.0.GA</version>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.jboss.as</groupId>
+  		<artifactId>jboss-as-ejb-client-bom</artifactId>
+  		<version>7.1.1.Final</version>
+  		<type>pom</type>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>jboss.messaging</groupId>
+  		<artifactId>jboss-messaging-client</artifactId>
+  		<version>1.4.5.GA</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.jboss.client</groupId>
+  		<artifactId>jbossall-client</artifactId>
+  		<version>4.2.3.GA</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>jboss.aop</groupId>
+  		<artifactId>jboss-aop-jdk50</artifactId>
+  		<version>1.5.6.GA</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>jboss</groupId>
+  		<artifactId>jboss-aop-jdk50-client</artifactId>
+  		<version>4.2.3</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>jboss</groupId>
+  		<artifactId>jboss-javassist</artifactId>
+  		<version>4.2.3.GA</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>jboss</groupId>
+  		<artifactId>jboss-trove</artifactId>
+  		<version>4.2.3.GA</version>
+  	</dependency>
+   -->
+   
+ <!--  	<dependency>
+  		<groupId>jboss</groupId>
+  		<artifactId>jboss-client</artifactId>
+  		<version>1.0.0</version>
+  		<scope>system</scope>
+  		<systemPath>/home/vlad/bilbo/bin/client/jboss-client.jar</systemPath>
+  	</dependency> -->
+
+  	<dependency>
+  		<groupId>org.jboss.as</groupId>
+  		<artifactId>jboss-as-jms-client-bom</artifactId>
+  		<version>7.2.0.Final</version>
+  		<type>pom</type>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.hornetq</groupId>
+  		<artifactId>hornetq-core-client</artifactId>
+  		<version>2.3.0.Final</version>
+  	</dependency>
+  </dependencies>
+
+</project>
