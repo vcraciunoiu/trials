@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 
 import javax.net.ServerSocketFactory;
 
-public class TheMainClass {
+public class VladcrcHTTPServer {
 
-	private static final Logger logger = Logger.getLogger(TheMainClass.class.getName());
+	private static final Logger logger = Logger.getLogger(VladcrcHTTPServer.class.getName());
 	
 	public static void main(String[] args) throws Exception {
 		logger.info("Starting the HTTP server...");
