@@ -3,6 +3,7 @@ package ro.daephenceeva.httpd;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,7 +65,6 @@ public class ClientHandler implements Runnable {
             try {
 				socket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
