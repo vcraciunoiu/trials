@@ -33,10 +33,7 @@ public class VladcrcHTTPServer {
 			logger.info("Client " + clientName + " has connected.");
 			
 			// we process the request in a pooled thread
-//			executorService.execute(new ClientHandler(socket, serverWorkspace));
-			
-			Thread thread = new Thread(new ClientHandler(socket, serverWorkspace));
-			thread.start();
+			executorService.execute(new ClientHandler(socket, serverWorkspace));
 		}
 	}
 
