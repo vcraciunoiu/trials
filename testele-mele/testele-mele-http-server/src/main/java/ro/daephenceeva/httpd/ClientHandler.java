@@ -1,9 +1,11 @@
 package ro.daephenceeva.httpd;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -18,17 +20,16 @@ public class ClientHandler implements Runnable {
 
 	private static final Logger logger = Logger.getLogger(ClientHandler.class.getName());
 
-	private static final Integer HTTP_200_SUCCESS = 200;
-	private static final Integer HTTP_400_BAD_REQUEST = 400;
-	private static final Integer HTTP_500_INTERNAL_ERROR = 500;
-
 	private Socket socket = null;
 
+	private HTTPProtocol protocol = null;
+	
 	private String serverWorkspace;
 	
 	public ClientHandler(Socket socket, String serverWorkspace) {
 		this.socket = socket;
 		this.serverWorkspace = serverWorkspace;
+		this.protocol = new HTTPProtocol();
 	}
 	
 	@Override
@@ -36,6 +37,7 @@ public class ClientHandler implements Runnable {
 		logger.info("Processing request from " + socket.toString());
 
 		try (
+			// this is a nice feature from Java 7: try-with-resources; closing streams is handled automatically
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintStream out = new PrintStream(socket.getOutputStream(), true);
 		){
@@ -43,91 +45,41 @@ public class ClientHandler implements Runnable {
                 Response response = null;
                 
                 try {
-                    Request request = parseRequest(in);
-                    response = processRequest(request);
+                    Request request = protocol.parseRequest(in);
+                    response = protocol.processRequest(request, serverWorkspace);
                 } catch (BadParseException bpe) {
-                    response = newExceptionStatus(HTTP_400_BAD_REQUEST, bpe);
+                    response = newExceptionStatus(protocol.HTTP_400_BAD_REQUEST, bpe);
                 } catch (BadProcessException bqe) {
-                    response = newExceptionStatus(HTTP_500_INTERNAL_ERROR, bqe);
+                    response = newExceptionStatus(protocol.HTTP_500_INTERNAL_ERROR, bqe);
                 }
                 
                 returnRespone(response, out);
                 
-                socket.close();
+                logger.info("Succesfully processed request from " + socket.toString());
             } catch (Exception e) {
-                // log this locally, we can't return it to the client....
-            	e.printStackTrace();
+    			logger.severe("Something ugly happened...");
             }
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+        	logger.severe("Error processing request from " + socket.toString());
+		} finally {
+            try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-	}
-
-	private Request parseRequest(BufferedReader in) throws BadParseException {
-		String line;
-		Request request = new Request();
-		
-		try {
-			// first line, ex: GET /gigi.html HTTP/1.1
-			line = in.readLine();
-			String[] splitResult = line.split("\\s");
-			
-			request.setMethod(splitResult[0]);
-			request.setResource(splitResult[1]);
-		
-			do {
-				line = in.readLine();
-				System.out.println(line);
-				if (!line.isEmpty()) {
-					splitResult = line.split(":\\s");
-					
-					request.getHeaders().put(splitResult[0], splitResult[1]);
-				}
-			} while (line != null);
-		} catch (IOException e) {
-			throw new BadParseException(e);
-		}
-		
-		return request;
-	}
-
-	private Response processRequest(Request request) throws BadProcessException {
-		Response response = new Response();
-		
-		response.setStatus(HTTP_200_SUCCESS);
-		
-		// we get the file and put it on response
-		String fileName = request.getResource();
-		File file = new File(serverWorkspace + System.getProperty("file.separator") + fileName).getAbsoluteFile();
-        if(!(file.exists())) {
-            throw new BadProcessException("File not found error");
-        }
-        
-        response.setResource(file);
-        
-		// set the headers on response
-		response.getHeaders().put("Content-Type", "text/html");
-		
-		Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		response.getHeaders().put("Date", dateFormat.format(date));
-		
-		int length = (int) file.length();
-		response.getHeaders().put("Content-Length", String.valueOf(length));
-        
-		return response;
 	}
 
 	private void returnRespone(Response response, PrintStream out) throws Exception {
-		response.getHeaders().put("HTTP/1.1", "200 OK");
-		out.println("HTTP/1.1" + response.getStatus() + "\r\n");
+		out.println("HTTP/1.1" + response.getStatus());
 		
 		// write the headers on socket's output stream
 		for (Entry<String, String> header : response.getHeaders().entrySet()) {
-			out.println(header.getKey() + ": " + header.getValue() + "\r\n");
+			out.println(header.getKey() + ": " + header.getValue());
 		}
-		out.println("\r\n");
+		// we have to add an empty line after headers, as the protocol requires
+		out.println("");
 		
 		// write the file
         DataInputStream fin = new DataInputStream(new FileInputStream(response.getResource()));
@@ -151,7 +103,30 @@ public class ClientHandler implements Runnable {
 		response.getHeaders().put("Date", dateFormat.format(date));
 
 		// set the exception message as the "resource" file
-		//TODO
+		try {
+			File temp = File.createTempFile("exception", ".html");
+			BufferedWriter out = new BufferedWriter(new FileWriter(temp));
+		    StringBuffer htmlErrorPage = new StringBuffer();
+		    htmlErrorPage.append("<html>");
+		    htmlErrorPage.append("<head>");
+		    htmlErrorPage.append("<title>");
+		    htmlErrorPage.append("Error, duh!");
+		    htmlErrorPage.append("</title>");
+		    htmlErrorPage.append("</head>");
+		    htmlErrorPage.append("<body>");
+		    htmlErrorPage.append("Internal server error.");
+		    htmlErrorPage.append("<p>");
+		    htmlErrorPage.append(e.getMessage());
+		    htmlErrorPage.append("</p>");
+		    htmlErrorPage.append("</body>");
+		    htmlErrorPage.append("</html>");
+			out.write(htmlErrorPage.toString());
+		    out.close();
+		    
+			response.setResource(temp);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		
 		return response;
 	}

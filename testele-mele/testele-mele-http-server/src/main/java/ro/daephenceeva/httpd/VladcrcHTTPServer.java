@@ -14,7 +14,8 @@ public class VladcrcHTTPServer {
 	private static final Logger logger = Logger.getLogger(VladcrcHTTPServer.class.getName());
 	
 	// this is the folder where the server will get the HTML files from
-	private static final String serverWorkspace = "t:\\work\\";
+//	private static final String serverWorkspace = "t:\\work\\";
+	private static final String serverWorkspace = "/home/vlad/Documents/play";
 	
 	public static void main(String[] args) throws Exception {
 		logger.info("Starting the HTTP server...");
@@ -33,10 +34,7 @@ public class VladcrcHTTPServer {
 			logger.info("Client " + clientName + " has connected.");
 			
 			// we process the request in a pooled thread
-//			executorService.execute(new ClientHandler(socket, serverWorkspace));
-			
-			Thread thread = new Thread(new ClientHandler(socket, serverWorkspace));
-			thread.start();
+			executorService.execute(new ClientHandler(socket, serverWorkspace));
 		}
 	}
 
