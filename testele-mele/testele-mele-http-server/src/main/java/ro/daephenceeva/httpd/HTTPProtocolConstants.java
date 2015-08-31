@@ -23,10 +23,7 @@ public interface HTTPProtocolConstants {
 		txt ("text/plain"),
 		xml ("text/xml"),
 		zip ("application/zip")
-//		APPLICATION_FORM_URLENCODED ("application/x-www-form-urlencoded"),
-//		APPLICATION_OCTET_STREAM ("application/octet-stream"),
-//		APPLICATION_XML ("application/xml"),
-//		MULTIPART_FORM_DATA ("multipart/form-data"),
+		// and others...
 		;
 		
 	    public String contentType;

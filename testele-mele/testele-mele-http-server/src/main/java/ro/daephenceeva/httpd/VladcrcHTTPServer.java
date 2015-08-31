@@ -22,8 +22,18 @@ public class VladcrcHTTPServer {
 		boolean listening = true;
 		 
 		ServerSocketFactory factory = ServerSocketFactory.getDefault();
+		
+		// the address we will bind to
+		// for now we bind locally, for the scope of these homework
 		InetAddress inetAddress = InetAddress.getByName("localhost");
-		ServerSocket serverSocket = factory.createServerSocket(8080, 100, inetAddress);
+		
+		// the port we will listen on
+		int port = 8080;
+
+		// how many connections are queued 
+		int backlog = 100;
+		
+		ServerSocket serverSocket = factory.createServerSocket(port, backlog, inetAddress);
 		
 		// we use a thread pool because we don't want to create a new thread for each request,
 		// that would be too expensive
