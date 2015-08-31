@@ -41,24 +41,37 @@ public class ClientHandler implements Runnable {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintStream out = new PrintStream(socket.getOutputStream(), true);
 		){
-            try {
-                Response response = null;
-                
-                try {
-                    Request request = protocol.parseRequest(in);
-                    response = protocol.processRequest(request, serverWorkspace);
-                } catch (BadParseException bpe) {
-                    response = newExceptionStatus(protocol.HTTP_400_BAD_REQUEST, bpe);
-                } catch (BadProcessException bqe) {
-                    response = newExceptionStatus(protocol.HTTP_500_INTERNAL_ERROR, bqe);
-                }
-                
-                returnRespone(response, out);
-                
-                logger.info("Succesfully processed request from " + socket.toString());
-            } catch (Exception e) {
-    			logger.severe("Something ugly happened...");
-            }
+			boolean keepAlive = false;
+			
+			do {
+	            try {
+	                Response response = null;
+	                
+	                try {
+	                    Request request = protocol.parseRequest(in);
+	                    
+	                    String connection = request.getHeaders().get("Connection");
+	                    if (connection.equals("keep-alive")) {
+	                    	keepAlive = true;
+	                    } else {
+	                    	keepAlive = false;
+	                    }
+	                    
+	                    response = protocol.processRequest(request, serverWorkspace);
+	                } catch (BadParseException bpe) {
+	                    response = newExceptionStatus(protocol.HTTP_400_BAD_REQUEST, bpe);
+	                } catch (BadProcessException bqe) {
+	                    response = newExceptionStatus(protocol.HTTP_500_INTERNAL_ERROR, bqe);
+	                }
+	                
+	                returnRespone(response, out);
+	                
+	                logger.info("Succesfully processed request from " + socket.toString());
+	            } catch (Exception e) {
+	    			logger.severe("Something ugly happened...");
+	    			keepAlive = false;
+	            }
+            } while (keepAlive);
 		} catch (Exception e) {
         	logger.severe("Error processing request from " + socket.toString());
 		} finally {
