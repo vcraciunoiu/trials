@@ -7,6 +7,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This class implements the HTTP protocol details: the way we parse the input,
+ * what we do with the request depending on method type and so on.
+ * 
+ * A request looks like this: HEAD/GET/POST/PUT/DELETE http://host[:port]/path[?queryString] 
+ */
 public class HTTPProtocol {
 
 	public Request parseRequest(BufferedReader in) throws BadParseException {
@@ -46,8 +52,35 @@ public class HTTPProtocol {
 		
 		response.setStatus(HTTPProtocolConstants.HTTP_200_SUCCESS);
 		
-		// set the headers on response
+		String method = request.getMethod();
 		
+		// for now our server supports HEAD, GET and POST methods
+		switch (method) {
+		case "HEAD":
+			//TODO
+			doHEAD();
+			break;
+		case "GET":
+			doGET(request, serverWorkspace, response);
+			break;
+		case "POST":
+			//TODO
+			doPOST();
+			break;
+		default:
+			break;
+		}
+		
+		return response;
+	}
+
+	private void doHEAD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void doGET(Request request, String serverWorkspace, Response response) throws ResourceNotFoundException {
+		// set the headers on response
 		String contentType = getMimeType(request.getResourceName());
 		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, contentType);
 		
@@ -66,8 +99,10 @@ public class HTTPProtocol {
         
 		int length = (int) file.length();
 		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_LENGTH, String.valueOf(length));
-        
-		return response;
+	}
+
+	private void doPOST() {
+		// TODO we should handle json payload and file upload
 	}
 
 	private String getMimeType(String resourceName) {
