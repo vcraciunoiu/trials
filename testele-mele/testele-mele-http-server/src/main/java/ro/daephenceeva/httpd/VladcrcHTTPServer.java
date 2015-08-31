@@ -14,8 +14,8 @@ public class VladcrcHTTPServer {
 	private static final Logger logger = Logger.getLogger(VladcrcHTTPServer.class.getName());
 	
 	// this is the folder where the server will get the HTML files from
-//	private static final String serverWorkspace = "t:\\work\\";
-	private static final String serverWorkspace = "/home/vlad/Documents/play";
+	private static final String serverWorkspace = "t:\\work\\";
+//	private static final String serverWorkspace = "/home/vlad/Documents/play";
 	
 	public static void main(String[] args) throws Exception {
 		logger.info("Starting the HTTP server...");
@@ -25,6 +25,8 @@ public class VladcrcHTTPServer {
 		InetAddress inetAddress = InetAddress.getByName("localhost");
 		ServerSocket serverSocket = factory.createServerSocket(8080, 100, inetAddress);
 		
+		// we use a thread pool because we don't want to create a new thread for each request,
+		// that would be too expensive
 		ThreadPoolExecutor executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
 		while (listening) {

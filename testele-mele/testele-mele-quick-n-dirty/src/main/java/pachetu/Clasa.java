@@ -1,15 +1,43 @@
 package pachetu;
 
-
 public class Clasa {
 
     public static void main(String[] args) {
-    	String brandIdParam = null;
-		String sourceParam = "AFIFI";
-		String logMsg = "Getting vouchers. " + (brandIdParam==null?"":"brandIdParam="+brandIdParam+" ") + (sourceParam==null?"":"sourceParam="+sourceParam);
-    	System.out.println(logMsg);
+//    	String fileExtension = "html";
+//		
+//    	String valueOf = MimeTypes.valueOf(fileExtension).getContentType();
+//		System.out.println(valueOf);
+//		
+//		String string = MimeTypes.valueOf(fileExtension).toString();
+//		System.out.println(string);
+		
+		String resourceName = "/gigi.zip";
+		String[] split = resourceName.split("\\.");
+		System.out.println(split[1]);
     }
 
+	enum MimeTypes {
+		APPLICATION_FORM_URLENCODED ("application/x-www-form-urlencoded"),
+		APPLICATION_JSON ("application/json"),
+		APPLICATION_OCTET_STREAM ("application/octet-stream"),
+		APPLICATION_XML ("application/xml"),
+		MULTIPART_FORM_DATA ("multipart/form-data"),
+		html ("text/html"),
+		TEXT_PLAIN ("text/plain"),
+		TEXT_XML ("text/xml")
+		;
+		
+	    public String contentType;
+	    
+	    public String getContentType() {
+			return contentType;
+		}
+	    
+		MimeTypes(String contentType) { 
+	        this.contentType = contentType;
+	    }	
+	}
+	
 	private static String oMethoda() {
 		return someTrickyMethod();
 	}

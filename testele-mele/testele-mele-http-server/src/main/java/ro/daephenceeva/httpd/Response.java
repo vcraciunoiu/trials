@@ -6,11 +6,21 @@ import java.util.Map;
 
 public class Response {
 
+	private String protocolVersion;
+	
 	private Integer status;
 	
 	private Map<String, String> headers = new HashMap<String, String>();
 	
 	private File resource;
+
+	public String getProtocolVersion() {
+		return protocolVersion;
+	}
+
+	public void setProtocolVersion(String protocolVersion) {
+		this.protocolVersion = protocolVersion;
+	}
 
 	public Integer getStatus() {
 		return status;

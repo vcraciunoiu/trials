@@ -43,6 +43,10 @@ public class ClientHandler implements Runnable {
 		){
 			boolean keepAlive = false;
 			
+			// with this loop we implement the keep-alive feature, which means we keep the socket open,
+			// and we process more requests in the same TCP connection. We close the connection when the client sends
+			// the header "Connection: close", in case of an error, or in case of the keep-alive timeout 
+			// (not implemented in this version)
 			do {
 	            try {
 	                Response response = null;
@@ -50,32 +54,39 @@ public class ClientHandler implements Runnable {
 	                try {
 	                    Request request = protocol.parseRequest(in);
 	                    
-	                    String connection = request.getHeaders().get("Connection");
-	                    if (connection.equals("keep-alive")) {
+	                    String connection = request.getHeaders().get(HTTPProtocolConstants.HEADER_NAME_CONNECTION);
+	                    if (connection.equals(HTTPProtocolConstants.HEADER_VALUE_KEEP_ALIVE)) {
 	                    	keepAlive = true;
 	                    } else {
 	                    	keepAlive = false;
 	                    }
 	                    
 	                    response = protocol.processRequest(request, serverWorkspace);
+	                    
+	                } catch (ResourceNotFoundException fnf) {
+	                	response = newExceptionStatus(HTTPProtocolConstants.HTTP_404_NOT_FOUND, fnf);
+	                	keepAlive = false;
 	                } catch (BadParseException bpe) {
-	                    response = newExceptionStatus(protocol.HTTP_400_BAD_REQUEST, bpe);
+	                    response = newExceptionStatus(HTTPProtocolConstants.HTTP_400_BAD_REQUEST, bpe);
+	                	keepAlive = false;
 	                } catch (BadProcessException bqe) {
-	                    response = newExceptionStatus(protocol.HTTP_500_INTERNAL_ERROR, bqe);
+	                    response = newExceptionStatus(HTTPProtocolConstants.HTTP_500_INTERNAL_ERROR, bqe);
+	                    keepAlive = false;
 	                }
 	                
 	                returnRespone(response, out);
 	                
 	                logger.info("Succesfully processed request from " + socket.toString());
 	            } catch (Exception e) {
-	    			logger.severe("Something ugly happened...");
+	            	logger.severe("Error processing request from " + socket.toString() + ": " + e.getMessage());
 	    			keepAlive = false;
 	            }
             } while (keepAlive);
 		} catch (Exception e) {
-        	logger.severe("Error processing request from " + socket.toString());
+			logger.severe("Something ugly happened in the HTTP conversation of socket " + socket.toString() + ": " + e.getMessage());
 		} finally {
             try {
+    			logger.info("Closing socket " + socket.toString());
 				socket.close();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -84,7 +95,7 @@ public class ClientHandler implements Runnable {
 	}
 
 	private void returnRespone(Response response, PrintStream out) throws Exception {
-		out.println("HTTP/1.1" + response.getStatus());
+		out.println(HTTPProtocolConstants.PROTOCOL_VERSION_HTTP_1_1 + " " + response.getStatus());
 		
 		// write the headers on socket's output stream
 		for (Entry<String, String> header : response.getHeaders().entrySet()) {
@@ -92,7 +103,7 @@ public class ClientHandler implements Runnable {
 		}
 		// we have to add an empty line after headers, as the protocol requires
 		out.println("");
-		
+	
 		// write the file
         DataInputStream fin = new DataInputStream(new FileInputStream(response.getResource()));
         int length = (int) response.getResource().length();
@@ -108,13 +119,15 @@ public class ClientHandler implements Runnable {
 		
 		response.setStatus(status);
 		
-		response.getHeaders().put("Content-Type", "text/html");
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, HTTPProtocolConstants.HEADER_VALUE_TEXT_HTML);
 		
 		Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		response.getHeaders().put("Date", dateFormat.format(date));
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_DATE, dateFormat.format(date));
 
 		// set the exception message as the "resource" file
+		// TODO these temporary files will stay on disk, ex. in folder "c:\Users\vlad\AppData\Local\Temp\".
+		// we should get rid of them, or don't create them at all
 		try {
 			File temp = File.createTempFile("exception", ".html");
 			BufferedWriter out = new BufferedWriter(new FileWriter(temp));

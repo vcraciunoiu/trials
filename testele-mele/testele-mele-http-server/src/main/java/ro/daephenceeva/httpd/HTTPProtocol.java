@@ -9,21 +9,18 @@ import java.util.Date;
 
 public class HTTPProtocol {
 
-	public static final Integer HTTP_200_SUCCESS = 200;
-	public static final Integer HTTP_400_BAD_REQUEST = 400;
-	public static final Integer HTTP_500_INTERNAL_ERROR = 500;
-
 	public Request parseRequest(BufferedReader in) throws BadParseException {
 		String line;
 		Request request = new Request();
 		
 		try {
-			// first line, ex: GET /gigi.html HTTP/1.1
+			// we get the first line, ex: GET /gigi.html HTTP/1.1
 			line = in.readLine();
 			String[] splitResult = line.split("\\s");
 			
 			request.setMethod(splitResult[0]);
-			request.setResource(splitResult[1]);
+			request.setResourceName(splitResult[1]);
+			request.setProtocolVersion(splitResult[2]);
 		
 			while (true) {
 				line = in.readLine();
@@ -42,31 +39,46 @@ public class HTTPProtocol {
 		return request;
 	}
 
-	public Response processRequest(Request request, String serverWorkspace) throws BadProcessException {
+	public Response processRequest(Request request, String serverWorkspace) throws BadProcessException, ResourceNotFoundException {
 		Response response = new Response();
 		
-		response.setStatus(HTTP_200_SUCCESS);
+		response.setProtocolVersion(request.getProtocolVersion());
+		
+		response.setStatus(HTTPProtocolConstants.HTTP_200_SUCCESS);
+		
+		// set the headers on response
+		
+		String contentType = getMimeType(request.getResourceName());
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, contentType);
+		
+		Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_DATE, dateFormat.format(date));
 		
 		// we get the file and put it on response
-		String fileName = request.getResource();
+		String fileName = request.getResourceName();
 		File file = new File(serverWorkspace + fileName).getAbsoluteFile();
         if(!(file.exists())) {
-            throw new BadProcessException("File not found error");
+            throw new ResourceNotFoundException("Resource not found");
         }
         
         response.setResource(file);
         
-		// set the headers on response
-		response.getHeaders().put("Content-Type", "text/html");
-		
-		Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		response.getHeaders().put("Date", dateFormat.format(date));
-		
 		int length = (int) file.length();
-		response.getHeaders().put("Content-Length", String.valueOf(length));
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_LENGTH, String.valueOf(length));
         
 		return response;
+	}
+
+	private String getMimeType(String resourceName) {
+		String mimeType = null;
+		
+		String[] splitResult = resourceName.split("\\.");
+		String fileExtension = splitResult[1];
+		
+		mimeType = HTTPProtocolConstants.MimeTypes.valueOf(fileExtension).getContentType();
+		
+		return mimeType;
 	}
 
 }

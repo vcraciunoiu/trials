@@ -5,11 +5,21 @@ import java.util.Map;
 
 public class Request {
 
+	private String protocolVersion;
+	
 	private String method;
 	
-	private String resource;
+	private String resourceName;
 	
 	private Map<String, String> headers = new HashMap<String, String>();
+
+	public String getProtocolVersion() {
+		return protocolVersion;
+	}
+
+	public void setProtocolVersion(String protocolVersion) {
+		this.protocolVersion = protocolVersion;
+	}
 
 	public String getMethod() {
 		return method;
@@ -19,12 +29,12 @@ public class Request {
 		this.method = method;
 	}
 	
-	public String getResource() {
-		return resource;
+	public String getResourceName() {
+		return resourceName;
 	}
 
-	public void setResource(String resource) {
-		this.resource = resource;
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
 	}
 
 	public Map<String, String> getHeaders() {
