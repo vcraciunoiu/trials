@@ -11,7 +11,7 @@ import java.util.Date;
  * This class implements the HTTP protocol details: the way we parse the input,
  * what we do with the request depending on method type and so on.
  * 
- * A HTTP request looks like this: HEAD|GET|POST|PUT|DELETE http://host[:port]/path[?queryString]
+ * An HTTP request looks like this: HEAD|GET|POST|PUT|DELETE http://host[:port]/path[?queryString]
  * 
  * On the socket we will receive a first line with essential information and then headers.
  * Something like this:
@@ -37,8 +37,9 @@ public class HTTPProtocol {
 		Request request = new Request();
 		
 		try {
-			// we get the first line, ex: GET /gigi.html HTTP/1.1
+			// we get the first line, ex: "GET /gigi.html HTTP/1.1"
 			line = in.readLine();
+			System.out.println(line);
 			String[] splitResult = line.split("\\s");
 			
 			request.setMethod(splitResult[0]);
@@ -76,6 +77,8 @@ public class HTTPProtocol {
 		String method = request.getMethod();
 		
 		// in the first version our server supports HEAD and GET methods
+    	// for the methods which we don't allow, the response MUST include an Allow header containing 
+    	// a list of valid methods for the requested resource. 
 		switch (method) {
 		case HTTPProtocolConstants.METHOD_HEAD:
 			doHEAD(request, response);
@@ -100,8 +103,6 @@ public class HTTPProtocol {
 	}
 
 	private void doHEAD(Request request, Response response) throws NotYetImplementedException {
-    	//in this case the response MUST include an Allow header containing 
-    	// a list of valid methods for the requested resource. 
     	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
 		throw new NotYetImplementedException("The HEAD method is not yet implemented.");
 	}
@@ -127,14 +128,17 @@ public class HTTPProtocol {
 	private void doPOST(Request request, Response response) throws NotYetImplementedException {
 		// in the POST method we could upload a file to server, 
 		// or receive a JSON payload which we would pass-on to a middleware
+    	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
 		throw new NotYetImplementedException("The POST method is not yet implemented.");
 	}
 
 	private void doPUT(Request request, Response response) throws NotYetImplementedException {
+    	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
 		throw new NotYetImplementedException("The PUT method is not yet implemented.");
 	}
 
 	private void doDelete(Request request, Response response) throws NotYetImplementedException {
+    	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
 		throw new NotYetImplementedException("The DELETE method is not yet implemented.");
 	}
 
