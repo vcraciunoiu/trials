@@ -30,7 +30,8 @@ public interface HTTPProtocolConstants {
 		html ("text/html"),
 		txt ("text/plain"),
 		xml ("text/xml"),
-		zip ("application/zip")
+		zip ("application/zip"),
+		jpg ("image/jpeg")
 		// and others...
 		;
 		
