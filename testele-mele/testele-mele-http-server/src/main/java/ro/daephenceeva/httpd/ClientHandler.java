@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -49,7 +46,7 @@ public class ClientHandler implements Runnable {
 			// (not implemented in this version)
 			do {
 	            try {
-	                Response response = null;
+	                Response response = new Response();
 	                
 	                try {
 	                    Request request = protocol.parseRequest(in);
@@ -61,16 +58,18 @@ public class ClientHandler implements Runnable {
 	                    	keepAlive = false;
 	                    }
 	                    
-	                    response = protocol.processRequest(request, serverWorkspace);
-	                    
+	                    protocol.processRequest(request, response, serverWorkspace);
+	                } catch (NotYetImplementedException nyi) {
+	                	newExceptionStatus(response, HTTPProtocolConstants.HTTP_405_METHOD_NOT_ALLOWED, nyi);
+	                	keepAlive = false;
 	                } catch (ResourceNotFoundException fnf) {
-	                	response = newExceptionStatus(HTTPProtocolConstants.HTTP_404_NOT_FOUND, fnf);
+	                	newExceptionStatus(response, HTTPProtocolConstants.HTTP_404_NOT_FOUND, fnf);
 	                	keepAlive = false;
 	                } catch (BadParseException bpe) {
-	                    response = newExceptionStatus(HTTPProtocolConstants.HTTP_400_BAD_REQUEST, bpe);
+	                    newExceptionStatus(response, HTTPProtocolConstants.HTTP_400_BAD_REQUEST, bpe);
 	                	keepAlive = false;
 	                } catch (BadProcessException bqe) {
-	                    response = newExceptionStatus(HTTPProtocolConstants.HTTP_500_INTERNAL_ERROR, bqe);
+	                    newExceptionStatus(response, HTTPProtocolConstants.HTTP_500_INTERNAL_ERROR, bqe);
 	                    keepAlive = false;
 	                }
 	                
@@ -82,8 +81,10 @@ public class ClientHandler implements Runnable {
 	    			keepAlive = false;
 	            }
             } while (keepAlive);
+			
 		} catch (Exception e) {
-			logger.severe("Something ugly happened in the HTTP conversation of socket " + socket.toString() + ": " + e.getMessage());
+			logger.severe("Something ugly happened in the HTTP conversation of socket " + socket.toString() 
+						+ ": " + e.getMessage());
 		} finally {
             try {
     			logger.info("Closing socket " + socket.toString());
@@ -114,18 +115,14 @@ public class ClientHandler implements Runnable {
         fin.close();
 	}
 
-	private Response newExceptionStatus(Integer status, Exception e) {
-		Response response = new Response();
-		
+	private Response newExceptionStatus(Response response, Integer status, Exception e) {
 		response.setStatus(status);
 		
-		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, HTTPProtocolConstants.HEADER_VALUE_TEXT_HTML);
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, 
+				HTTPProtocolConstants.HEADER_VALUE_TEXT_HTML);
 		
-		Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_DATE, dateFormat.format(date));
-
 		// set the exception message as the "resource" file
+		
 		// TODO these temporary files will stay on disk, ex. in folder "c:\Users\vlad\AppData\Local\Temp\".
 		// we should get rid of them, or don't create them at all
 		try {
@@ -149,6 +146,10 @@ public class ClientHandler implements Runnable {
 		    out.close();
 		    
 			response.setResource(temp);
+			
+			int length = (int) temp.length();
+			response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_LENGTH, String.valueOf(length));
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

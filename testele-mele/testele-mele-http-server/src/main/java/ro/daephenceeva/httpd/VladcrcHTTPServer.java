@@ -15,33 +15,27 @@ public class VladcrcHTTPServer {
 
 	private static final Logger logger = Logger.getLogger(VladcrcHTTPServer.class.getName());
 	
-	// this is the folder where the server will get the HTML files from
-	private static final String serverWorkspace = "t:\\work\\";
-//	private static final String serverWorkspace = "/home/vlad/Documents/play";
+	// this is the folder where the server will get the HTML files from, like "www-data" in Apache httpd.
+	// for the homework scope I set it to the "resources" folder in the project, so the demo can be run very quickly
+	private static final String serverWorkspace = "src/main/resources";
 	
 	public static void main(String[] args) {
 		logger.info("Starting the HTTP server...");
 		boolean listening = true;
-		 
+
 		ServerSocketFactory factory = ServerSocketFactory.getDefault();
 		ServerSocket serverSocket;
-		
+
 		// the port we will listen on
 		int port = 8080;
 
 		// how many connections are queued 
 		int backlog = 100;
-		
+
 		try {
-			// the address we will bind to
-			// for now we bind locally, for the scope of these homework
+			// the address we will bind to; for now we bind locally, for the scope of this homework
 			InetAddress inetAddress = InetAddress.getByName("localhost");
-			
 			serverSocket = factory.createServerSocket(port, backlog, inetAddress);
-			
-			// we don't let the clients to wait to much until the server "accept()" the connection
-			serverSocket.setSoTimeout(5000); 
-			
 		} catch (Exception e) {
 			logger.severe("Error initializing server socket.");
 			return;
@@ -67,6 +61,10 @@ public class VladcrcHTTPServer {
 			}
 		}
 		
+		stopPool(executorService);
+	}
+
+	private static void stopPool(ThreadPoolExecutor executorService) {
 		// prevent new Runnable objects from being submitted
 		executorService.shutdown();
         try {

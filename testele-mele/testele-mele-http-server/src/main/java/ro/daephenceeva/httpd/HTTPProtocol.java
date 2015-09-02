@@ -11,7 +11,24 @@ import java.util.Date;
  * This class implements the HTTP protocol details: the way we parse the input,
  * what we do with the request depending on method type and so on.
  * 
- * A request looks like this: HEAD/GET/POST/PUT/DELETE http://host[:port]/path[?queryString] 
+ * A HTTP request looks like this: HEAD|GET|POST|PUT|DELETE http://host[:port]/path[?queryString]
+ * 
+ * On the socket we will receive a first line with essential information and then headers.
+ * Something like this:
+ * 
+ * GET /file.html HTTP/1.1
+ * Host: localhost:8080
+ * User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0
+ * Accept: text/html,application/xhtml+xml,application/xml
+ * Accept-Language: en-US,en;q=0.5
+ * Accept-Encoding: gzip, deflate
+ * Cookie: ajs_user_id=null; ajs_group_id=null;
+ * Connection: keep-alive
+ * Cache-Control: max-age=0
+ * {empty line}
+ *  
+ * We get all this info and process it.
+ *  
  */
 public class HTTPProtocol {
 
@@ -45,27 +62,35 @@ public class HTTPProtocol {
 		return request;
 	}
 
-	public Response processRequest(Request request, String serverWorkspace) throws BadProcessException, ResourceNotFoundException {
-		Response response = new Response();
+	public Response processRequest(Request request, Response response, String serverWorkspace) throws BadProcessException, 
+			ResourceNotFoundException, NotYetImplementedException {
 		
 		response.setProtocolVersion(request.getProtocolVersion());
 		
 		response.setStatus(HTTPProtocolConstants.HTTP_200_SUCCESS);
 		
+		Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_DATE, dateFormat.format(date));
+		
 		String method = request.getMethod();
 		
-		// for now our server supports HEAD, GET and POST methods
+		// in the first version our server supports HEAD and GET methods
 		switch (method) {
-		case "HEAD":
-			//TODO
-			doHEAD();
+		case HTTPProtocolConstants.METHOD_HEAD:
+			doHEAD(request, response);
 			break;
-		case "GET":
+		case HTTPProtocolConstants.METHOD_GET:
 			doGET(request, serverWorkspace, response);
 			break;
-		case "POST":
-			//TODO
-			doPOST();
+		case HTTPProtocolConstants.METHOD_POST:
+			doPOST(request, response);
+			break;
+		case HTTPProtocolConstants.METHOD_PUT:
+			doPUT(request, response);
+			break;
+		case HTTPProtocolConstants.METHOD_DELETE:
+			doDelete(request, response);
 			break;
 		default:
 			break;
@@ -74,19 +99,17 @@ public class HTTPProtocol {
 		return response;
 	}
 
-	private void doHEAD() {
-		// TODO Auto-generated method stub
-		
+	private void doHEAD(Request request, Response response) throws NotYetImplementedException {
+    	//in this case the response MUST include an Allow header containing 
+    	// a list of valid methods for the requested resource. 
+    	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
+		throw new NotYetImplementedException("The HEAD method is not yet implemented.");
 	}
 
 	private void doGET(Request request, String serverWorkspace, Response response) throws ResourceNotFoundException {
 		// set the headers on response
 		String contentType = getMimeType(request.getResourceName());
 		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, contentType);
-		
-		Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_DATE, dateFormat.format(date));
 		
 		// we get the file and put it on response
 		String fileName = request.getResourceName();
@@ -101,8 +124,18 @@ public class HTTPProtocol {
 		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_LENGTH, String.valueOf(length));
 	}
 
-	private void doPOST() {
-		// TODO we should handle json payload and file upload
+	private void doPOST(Request request, Response response) throws NotYetImplementedException {
+		// in the POST method we could upload a file to server, 
+		// or receive a JSON payload which we would pass-on to a middleware
+		throw new NotYetImplementedException("The POST method is not yet implemented.");
+	}
+
+	private void doPUT(Request request, Response response) throws NotYetImplementedException {
+		throw new NotYetImplementedException("The PUT method is not yet implemented.");
+	}
+
+	private void doDelete(Request request, Response response) throws NotYetImplementedException {
+		throw new NotYetImplementedException("The DELETE method is not yet implemented.");
 	}
 
 	private String getMimeType(String resourceName) {
