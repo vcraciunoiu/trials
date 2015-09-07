@@ -31,7 +31,8 @@ public interface HTTPProtocolConstants {
 		txt ("text/plain"),
 		xml ("text/xml"),
 		zip ("application/zip"),
-		jpg ("image/jpeg")
+		jpg ("image/jpeg"),
+		ico ("image/x-icon")
 		// and others...
 		;
 		
