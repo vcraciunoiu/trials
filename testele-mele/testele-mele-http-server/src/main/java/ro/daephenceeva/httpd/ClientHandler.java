@@ -59,6 +59,7 @@ public class ClientHandler implements Runnable {
 	                    }
 	                    
 	                    protocol.processRequest(request, response, serverWorkspace);
+	                    
 	                } catch (NotYetImplementedException nyi) {
 	                	newExceptionStatus(response, HTTPProtocolConstants.HTTP_405_METHOD_NOT_ALLOWED, nyi);
 	                	keepAlive = false;

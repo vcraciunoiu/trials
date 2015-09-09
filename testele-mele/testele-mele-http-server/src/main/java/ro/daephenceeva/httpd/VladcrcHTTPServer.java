@@ -62,6 +62,7 @@ public class VladcrcHTTPServer {
 		}
 		
 		stopPool(executorService);
+		logger.info("HTTP server stoped.");
 	}
 
 	private static void stopPool(ThreadPoolExecutor executorService) {
@@ -70,7 +71,7 @@ public class VladcrcHTTPServer {
         try {
     		// wait for existing connections to complete
 			if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
-			   // stop executing threads
+				// stop executing threads
 				executorService.shutdownNow();
 			}
 		} catch (InterruptedException e) {
