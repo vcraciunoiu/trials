@@ -1,19 +1,19 @@
 package pachetu;
 
+import java.util.HashMap;
+
+import com.google.gson.Gson;
+
 public class Clasa {
 
     public static void main(String[] args) {
-//    	String fileExtension = "html";
-//		
-//    	String valueOf = MimeTypes.valueOf(fileExtension).getContentType();
-//		System.out.println(valueOf);
-//		
-//		String string = MimeTypes.valueOf(fileExtension).toString();
-//		System.out.println(string);
 		
-		String resourceName = "/gigi.zip";
-		String[] split = resourceName.split("\\.");
-		System.out.println(split[1]);
+		String body = "{ \"name\" : \"name1\", \"code\" : \"code1\", \"altobject\" : { \"name2\":\"value2\", \"name3\":\"value3\" } }";
+		Gson gson = new Gson();
+
+		HashMap<String, String> myViewObject = gson.fromJson(body, HashMap.class);
+		
+		System.out.println(myViewObject);
     }
 
 	enum MimeTypes {
