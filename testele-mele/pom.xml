@@ -20,6 +20,7 @@
     <module>testele-mele-ejb3-facade</module>
     <module>testele-mele-http-server</module>
     <module>testele-mele-rtstat</module>
+    <module>testele-mele-camel</module>
   </modules>
   <name>testele-mele</name>
 
