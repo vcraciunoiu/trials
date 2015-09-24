@@ -37,7 +37,7 @@ import java.util.Date;
  */
 public class HTTPProtocol {
 
-	public Request parseRequest(BufferedReader in) throws BadParseException {
+	public Request parseRequest(BufferedReader in) throws ProcessingException {
 		String line;
 		Request request = new Request();
 		
@@ -46,11 +46,11 @@ public class HTTPProtocol {
 			line = in.readLine();
 			System.out.println(line);
 			String[] splitResult = line.split("\\s");
-			
+
 			request.setMethod(splitResult[0]);
 			request.setResourceName(splitResult[1]);
 			request.setProtocolVersion(splitResult[2]);
-		
+
 			while (true) {
 				line = in.readLine();
 				System.out.println(line);
@@ -62,14 +62,13 @@ public class HTTPProtocol {
 				}
 			}
 		} catch (IOException e) {
-			throw new BadParseException(e);
+			throw new ProcessingException(HTTPProtocolConstants.HTTP_400_BAD_REQUEST, e.getMessage());
 		}
 		
 		return request;
 	}
 
-	public Response processRequest(Request request, Response response, String serverWorkspace) throws BadProcessException, 
-			ResourceNotFoundException, NotYetImplementedException {
+	public Response processRequest(Request request, Response response, String serverWorkspace) throws ProcessingException {
 		
 		response.setProtocolVersion(request.getProtocolVersion());
 		
@@ -108,32 +107,38 @@ public class HTTPProtocol {
 	}
 
 	/*
-	 * HEAD is identical to GET except that only the http headers are returned. 
+	 * HEAD is identical to GET except that only the HTTP headers are returned. 
 	 * The body is discarded. It is primarily used for checking the validity of URLs.
 	 */
-	private void doHEAD(Request request, String serverWorkspace, Response response) 
-			throws ResourceNotFoundException {
+	private void doHEAD(Request request, String serverWorkspace, Response response)	throws ProcessingException {
 		doGETInternal(request, serverWorkspace, response, false);
 	}
 
 	/*
 	 * GET is meant for retrieving content from the web server. The requests should be idempotent.
 	 */
-	private void doGET(Request request, String serverWorkspace, Response response) throws ResourceNotFoundException {
+	private void doGET(Request request, String serverWorkspace, Response response) throws ProcessingException {
 		doGETInternal(request, serverWorkspace, response, true);
 	}
 
 	private void doGETInternal(Request request, String serverWorkspace, Response response, boolean isGet)
-			throws ResourceNotFoundException {
+			throws ProcessingException {
 		// set the headers on response
-		String contentType = getMimeType(request.getResourceName());
+		String resourceName = request.getResourceName();
+		
+		if (resourceName.equals("/")) {
+			// we display the server's default welcome page
+			resourceName = "/index.html";
+		}
+		
+		String contentType = getMimeType(resourceName);
 		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, contentType);
 		
 		// we get the file and put it on response
-		String fileName = request.getResourceName();
+		String fileName = resourceName;
 		File file = new File(serverWorkspace + fileName).getAbsoluteFile();
         if(!(file.exists())) {
-            throw new ResourceNotFoundException("Resource not found");
+            throw new ProcessingException(HTTPProtocolConstants.HTTP_404_NOT_FOUND, "Resource not found");
         }
         
         if (isGet) {
@@ -149,28 +154,41 @@ public class HTTPProtocol {
 	 * In the POST method we could upload a file to server, 
      * or receive a JSON payload which we would pass-on to a middleware.
 	 */
-	private void doPOST(Request request, Response response) throws NotYetImplementedException {
+	private void doPOST(Request request, Response response) throws ProcessingException {
     	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
-		throw new NotYetImplementedException("The POST method is not yet implemented.");
+		throw new ProcessingException(HTTPProtocolConstants.HTTP_405_METHOD_NOT_ALLOWED, 
+				"The POST method is not yet implemented.");
 	}
 
-	private void doPUT(Request request, Response response) throws NotYetImplementedException {
+	private void doPUT(Request request, Response response) throws ProcessingException {
     	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
-		throw new NotYetImplementedException("The PUT method is not yet implemented.");
+		throw new ProcessingException(HTTPProtocolConstants.HTTP_405_METHOD_NOT_ALLOWED, 
+				"The PUT method is not yet implemented.");
 	}
 
-	private void doDelete(Request request, Response response) throws NotYetImplementedException {
+	private void doDelete(Request request, Response response) throws ProcessingException {
     	response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_ALLOW, "HEAD,GET");
-		throw new NotYetImplementedException("The DELETE method is not yet implemented.");
+		throw new ProcessingException(HTTPProtocolConstants.HTTP_405_METHOD_NOT_ALLOWED, 
+				"The DELETE method is not yet implemented.");
 	}
 
-	private String getMimeType(String resourceName) {
+	private String getMimeType(String resourceName) throws ProcessingException {
 		String mimeType = null;
 		
 		String[] splitResult = resourceName.split("\\.");
+		
+		if (splitResult.length != 2) {
+			throw new ProcessingException(HTTPProtocolConstants.HTTP_415_UNKNOWN_CONTENT_TYPE, "Cannot find Content-Type");
+		}
+		
 		String fileExtension = splitResult[1];
 		
-		mimeType = HTTPProtocolConstants.MimeTypes.valueOf(fileExtension).getContentType();
+		try {
+			mimeType = HTTPProtocolConstants.MimeTypes.valueOf(fileExtension).getContentType();
+		} catch (IllegalArgumentException e) {
+			throw new ProcessingException(HTTPProtocolConstants.HTTP_415_UNKNOWN_CONTENT_TYPE, 
+					"Unsupported or unknown Content-Type");
+		}
 		
 		return mimeType;
 	}

@@ -27,7 +27,7 @@ public class VladcrcHTTPServer {
 		ServerSocket serverSocket;
 
 		// the port we will listen on
-		int port = 8080;
+		int port = 7080;
 
 		// how many connections are queued 
 		int backlog = 100;

@@ -14,6 +14,7 @@ public interface HTTPProtocolConstants {
 	Integer HTTP_400_BAD_REQUEST = 400;
 	Integer HTTP_404_NOT_FOUND = 404;
 	Integer HTTP_405_METHOD_NOT_ALLOWED = 405;
+	Integer HTTP_415_UNKNOWN_CONTENT_TYPE = 415;
 	Integer HTTP_500_INTERNAL_ERROR = 500;
 	
 	String HEADER_NAME_CONTENT_LENGTH = "Content-Length";
