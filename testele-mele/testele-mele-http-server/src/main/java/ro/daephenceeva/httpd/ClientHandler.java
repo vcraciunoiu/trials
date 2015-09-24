@@ -51,6 +51,11 @@ public class ClientHandler implements Runnable {
 	                try {
 	                    Request request = protocol.parseRequest(in);
 	                    
+	                    if (request == null) {
+	                    	keepAlive = false;
+	                    	continue;
+	                    }
+	                    
 	                    String connection = request.getHeaders().get(HTTPProtocolConstants.HEADER_NAME_CONNECTION);
 	                    if (connection.equals(HTTPProtocolConstants.HEADER_VALUE_KEEP_ALIVE)) {
 	                    	keepAlive = true;
@@ -114,6 +119,9 @@ public class ClientHandler implements Runnable {
 		
 		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, 
 				HTTPProtocolConstants.HEADER_VALUE_TEXT_HTML);
+		
+		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONNECTION,
+				HTTPProtocolConstants.HEADER_VALUE_CONNECTION_CLOSE);
 		
 		// these temporary files will be created on disk, ex. in folder "c:\Users\vlad\AppData\Local\Temp\".
 		// we delete them when program exits

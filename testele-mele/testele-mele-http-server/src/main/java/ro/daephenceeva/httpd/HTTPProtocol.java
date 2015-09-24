@@ -45,6 +45,13 @@ public class HTTPProtocol {
 			// we get the first line, ex: "GET /gigi.html HTTP/1.1"
 			line = in.readLine();
 			System.out.println(line);
+			
+			// TODO sometimes this line is null; I have to see why;
+			// for now I make a workaround
+			if (line == null) {
+				return null;
+			}
+			
 			String[] splitResult = line.split("\\s");
 
 			request.setMethod(splitResult[0]);
@@ -63,6 +70,13 @@ public class HTTPProtocol {
 			}
 		} catch (IOException e) {
 			throw new ProcessingException(HTTPProtocolConstants.HTTP_400_BAD_REQUEST, e.getMessage());
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return request;

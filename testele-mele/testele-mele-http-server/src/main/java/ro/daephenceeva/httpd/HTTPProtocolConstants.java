@@ -24,6 +24,7 @@ public interface HTTPProtocolConstants {
 	String HEADER_NAME_ALLOW = "Allow";
 
 	String HEADER_VALUE_KEEP_ALIVE = "keep-alive";
+	String HEADER_VALUE_CONNECTION_CLOSE = "close";
 	String HEADER_VALUE_TEXT_HTML = "text/html";
 	
 	enum MimeTypes {
