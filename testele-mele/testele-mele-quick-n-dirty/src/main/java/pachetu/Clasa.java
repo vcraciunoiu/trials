@@ -1,19 +1,16 @@
 package pachetu;
 
-import java.util.HashMap;
-
-import com.google.gson.Gson;
-
 public class Clasa {
 
     public static void main(String[] args) {
 		
-		String body = "{ \"name\" : \"name1\", \"code\" : \"code1\", \"altobject\" : { \"name2\":\"value2\", \"name3\":\"value3\" } }";
-		Gson gson = new Gson();
-
-		HashMap<String, String> myViewObject = gson.fromJson(body, HashMap.class);
+        String brandsUrl = "http://gigi.com/restservices/brand";
+//		String publishAtCreate = "true";
+		String publishAtCreate = null;
+		String createNewBrandDocuments = "true";
 		
-		System.out.println(myViewObject);
+		String postBrandsUrl = brandsUrl  + "?publish=" + publishAtCreate  + "&createnewbranddocs=" + createNewBrandDocuments ;
+    	System.out.println(postBrandsUrl);
     }
 
 	enum MimeTypes {
