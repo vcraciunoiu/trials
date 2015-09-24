@@ -59,22 +59,12 @@ public class ClientHandler implements Runnable {
 	                    }
 	                    
 	                    protocol.processRequest(request, response, serverWorkspace);
-	                    
-	                } catch (NotYetImplementedException nyi) {
-	                	newExceptionStatus(response, HTTPProtocolConstants.HTTP_405_METHOD_NOT_ALLOWED, nyi);
+	                } catch (ProcessingException pe) {
+	                    newExceptionStatus(response, pe);
 	                	keepAlive = false;
-	                } catch (ResourceNotFoundException fnf) {
-	                	newExceptionStatus(response, HTTPProtocolConstants.HTTP_404_NOT_FOUND, fnf);
-	                	keepAlive = false;
-	                } catch (BadParseException bpe) {
-	                    newExceptionStatus(response, HTTPProtocolConstants.HTTP_400_BAD_REQUEST, bpe);
-	                	keepAlive = false;
-	                } catch (BadProcessException bqe) {
-	                    newExceptionStatus(response, HTTPProtocolConstants.HTTP_500_INTERNAL_ERROR, bqe);
-	                    keepAlive = false;
 	                }
 	                
-	                returnRespone(response, out);
+	                returnResponse(response, out);
 	                
 	                logger.info("Succesfully processed request from " + socket.toString());
 	            } catch (Exception e) {
@@ -96,7 +86,7 @@ public class ClientHandler implements Runnable {
 		}
 	}
 
-	private void returnRespone(Response response, PrintStream out) throws Exception {
+	private void returnResponse(Response response, PrintStream out) throws Exception {
 		out.println(HTTPProtocolConstants.PROTOCOL_VERSION_HTTP_1_1 + " " + response.getStatus());
 		
 		// write the headers on socket's output stream
@@ -116,34 +106,46 @@ public class ClientHandler implements Runnable {
         fin.close();
 	}
 
-	private Response newExceptionStatus(Response response, Integer status, Exception e) {
-		response.setStatus(status);
+	/*
+	 * we set the exception message as the "resource" file
+	 */
+	private Response newExceptionStatus(Response response, ProcessingException e) {
+		response.setStatus(e.getStatus());
 		
 		response.getHeaders().put(HTTPProtocolConstants.HEADER_NAME_CONTENT_TYPE, 
 				HTTPProtocolConstants.HEADER_VALUE_TEXT_HTML);
 		
-		// set the exception message as the "resource" file
-		
-		// TODO these temporary files will stay on disk, ex. in folder "c:\Users\vlad\AppData\Local\Temp\".
-		// we should get rid of them, or don't create them at all
+		// these temporary files will be created on disk, ex. in folder "c:\Users\vlad\AppData\Local\Temp\".
+		// we delete them when program exits
 		try {
 			File temp = File.createTempFile("exception", ".html");
+			temp.deleteOnExit();
+			
 			BufferedWriter out = new BufferedWriter(new FileWriter(temp));
-		    StringBuffer htmlErrorPage = new StringBuffer();
+		    
+			StringBuffer htmlErrorPage = new StringBuffer();
+			
 		    htmlErrorPage.append("<html>");
 		    htmlErrorPage.append("<head>");
 		    htmlErrorPage.append("<title>");
-		    htmlErrorPage.append("Error, duh!");
+		    htmlErrorPage.append("Error, duh !");
 		    htmlErrorPage.append("</title>");
 		    htmlErrorPage.append("</head>");
 		    htmlErrorPage.append("<body>");
-		    htmlErrorPage.append("Internal server error.");
+
+		    if (e.getStatus() == HTTPProtocolConstants.HTTP_500_INTERNAL_ERROR) {
+			    htmlErrorPage.append("Internal server error.");
+		    } else {
+			    htmlErrorPage.append("Bad request.");
+		    }
+
 		    htmlErrorPage.append("<p>");
 		    htmlErrorPage.append(e.getMessage());
 		    htmlErrorPage.append("</p>");
 		    htmlErrorPage.append("</body>");
 		    htmlErrorPage.append("</html>");
-			out.write(htmlErrorPage.toString());
+			
+		    out.write(htmlErrorPage.toString());
 		    out.close();
 		    
 			response.setResource(temp);
