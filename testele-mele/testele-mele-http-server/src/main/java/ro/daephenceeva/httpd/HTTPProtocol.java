@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * This class implements the HTTP protocol details: the way we parse the input,
@@ -37,6 +38,8 @@ import java.util.Date;
  */
 public class HTTPProtocol {
 
+	private static final Logger logger = Logger.getLogger(HTTPProtocol.class.getName());
+	
 	public Request parseRequest(BufferedReader in) throws ProcessingException {
 		String line;
 		Request request = new Request();
@@ -44,7 +47,14 @@ public class HTTPProtocol {
 		try {
 			// we get the first line, ex: "GET /gigi.html HTTP/1.1"
 			line = in.readLine();
-			System.out.println(line);
+			logger.fine("First line is: " + line);
+
+			// TODO sometimes this line is null; I have to see why;
+			// for now I make a workaround
+			if (line == null) {
+				return null;
+			}
+
 			String[] splitResult = line.split("\\s");
 
 			request.setMethod(splitResult[0]);
@@ -53,7 +63,7 @@ public class HTTPProtocol {
 
 			while (true) {
 				line = in.readLine();
-				System.out.println(line);
+				logger.fine(line);
 				if (!line.isEmpty()) {
 					splitResult = line.split(":\\s");
 					request.getHeaders().put(splitResult[0], splitResult[1]);
@@ -63,6 +73,13 @@ public class HTTPProtocol {
 			}
 		} catch (IOException e) {
 			throw new ProcessingException(HTTPProtocolConstants.HTTP_400_BAD_REQUEST, e.getMessage());
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return request;
@@ -178,7 +195,7 @@ public class HTTPProtocol {
 		String[] splitResult = resourceName.split("\\.");
 		
 		if (splitResult.length != 2) {
-			throw new ProcessingException(HTTPProtocolConstants.HTTP_415_UNKNOWN_CONTENT_TYPE, "Cannot find Content-Type");
+			throw new ProcessingException(HTTPProtocolConstants.HTTP_415_UNKNOWN_CONTENT_TYPE, "Cannot find content type.");
 		}
 		
 		String fileExtension = splitResult[1];
@@ -187,7 +204,7 @@ public class HTTPProtocol {
 			mimeType = HTTPProtocolConstants.MimeTypes.valueOf(fileExtension).getContentType();
 		} catch (IllegalArgumentException e) {
 			throw new ProcessingException(HTTPProtocolConstants.HTTP_415_UNKNOWN_CONTENT_TYPE, 
-					"Unsupported or unknown Content-Type");
+					"Unsupported or unknown content type.");
 		}
 		
 		return mimeType;

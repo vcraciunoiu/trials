@@ -25,8 +25,6 @@
   <name>testele-mele</name>
 
 	<build>
-		<!-- Maven will append the version to the finalName (which is the name 
-			given to the generated war, and hence the context root) -->
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
