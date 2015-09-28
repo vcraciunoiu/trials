@@ -73,13 +73,6 @@ public class HTTPProtocol {
 			}
 		} catch (IOException e) {
 			throw new ProcessingException(HTTPProtocolConstants.HTTP_400_BAD_REQUEST, e.getMessage());
-		} finally {
-			try {
-				in.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		return request;
