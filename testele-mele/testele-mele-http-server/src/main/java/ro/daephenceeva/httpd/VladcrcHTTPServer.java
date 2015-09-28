@@ -27,7 +27,7 @@ public class VladcrcHTTPServer {
 		ServerSocket serverSocket;
 
 		// the port we will listen on
-		int port = 7080;
+		int port = 8080;
 
 		// how many connections are queued 
 		int backlog = 100;
@@ -37,7 +37,7 @@ public class VladcrcHTTPServer {
 			InetAddress inetAddress = InetAddress.getByName("localhost");
 			serverSocket = factory.createServerSocket(port, backlog, inetAddress);
 		} catch (Exception e) {
-			logger.severe("Error initializing server socket.");
+			logger.severe("Error initializing server socket: " + e.getMessage());
 			return;
 		}
 
@@ -61,21 +61,24 @@ public class VladcrcHTTPServer {
 			}
 		}
 		
-		stopPool(executorService);
-		logger.info("HTTP server stoped.");
+		stopAll(executorService, serverSocket);
+		logger.info("HTTP server stopped.");
 	}
 
-	private static void stopPool(ThreadPoolExecutor executorService) {
-		// prevent new Runnable objects from being submitted
-		executorService.shutdown();
+	private static void stopAll(ThreadPoolExecutor executorService, ServerSocket serverSocket) {
         try {
+    		serverSocket.close();
+    		
+    		// prevent new Runnable objects from being submitted
+    		executorService.shutdown();
+
     		// wait for existing connections to complete
 			if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
 				// stop executing threads
 				executorService.shutdownNow();
 			}
-		} catch (InterruptedException e) {
-			logger.severe("Cannot stop pool.");
+		} catch (Exception e) {
+			logger.severe("Cannot stop.");
 			e.printStackTrace();
 		}
 	}
