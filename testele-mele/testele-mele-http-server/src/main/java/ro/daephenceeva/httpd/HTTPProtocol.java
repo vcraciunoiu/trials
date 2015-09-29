@@ -47,10 +47,10 @@ public class HTTPProtocol {
 		try {
 			// we get the first line, ex: "GET /gigi.html HTTP/1.1"
 			line = in.readLine();
-			logger.fine("First line is: " + line);
+			logger.info("First line is: " + line);
 
-			// TODO sometimes this line is null; I have to see why;
-			// for now I make a workaround
+			// this line gets null when the client ended the connection;
+			// Firefox has "network.http.keep-alive.timeout=115" by default. 
 			if (line == null) {
 				return null;
 			}
@@ -63,8 +63,8 @@ public class HTTPProtocol {
 
 			while (true) {
 				line = in.readLine();
-				logger.fine(line);
-				if (!line.isEmpty()) {
+				logger.info(line);
+				if (line != null && !line.isEmpty()) {
 					splitResult = line.split(":\\s");
 					request.getHeaders().put(splitResult[0], splitResult[1]);
 				} else {
@@ -185,13 +185,18 @@ public class HTTPProtocol {
 	private String getMimeType(String resourceName) throws ProcessingException {
 		String mimeType = null;
 		
-		String[] splitResult = resourceName.split("\\.");
+//		String[] splitResult = resourceName.split("\\.");
+//		if (splitResult.length != 2) {
+//			throw new ProcessingException(HTTPProtocolConstants.HTTP_415_UNKNOWN_CONTENT_TYPE, "Cannot find content type.");
+//		}
+//		String fileExtension = splitResult[1];
 		
-		if (splitResult.length != 2) {
+		int dot = resourceName.lastIndexOf(".");
+		if (dot < 0) {
 			throw new ProcessingException(HTTPProtocolConstants.HTTP_415_UNKNOWN_CONTENT_TYPE, "Cannot find content type.");
 		}
 		
-		String fileExtension = splitResult[1];
+		String fileExtension = resourceName.substring(dot + 1).toLowerCase();
 		
 		try {
 			mimeType = HTTPProtocolConstants.MimeTypes.valueOf(fileExtension).getContentType();

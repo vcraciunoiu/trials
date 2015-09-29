@@ -52,6 +52,7 @@ public class ClientHandler implements Runnable {
 	                    Request request = protocol.parseRequest(in);
 	                    
 	                    if (request == null) {
+	        				logger.info("We got a 'null' input. Closing connection.");
 	                    	keepAlive = false;
 	                    	continue;
 	                    }
