@@ -3,14 +3,23 @@ package pachetu;
 public class Clasa {
 
     public static void main(String[] args) {
+		String stringu = "GET /gigi.html HTTP/1.1";
 		
-        String brandsUrl = "http://gigi.com/restservices/brand";
-//		String publishAtCreate = "true";
-		String publishAtCreate = null;
-		String createNewBrandDocuments = "true";
+		int firstIndex = stringu.indexOf(' ');
+		int lastIndex = stringu.lastIndexOf(' ');
 		
-		String postBrandsUrl = brandsUrl  + "?publish=" + publishAtCreate  + "&createnewbranddocs=" + createNewBrandDocuments ;
-    	System.out.println(postBrandsUrl);
+		String metoda = stringu.substring(0, firstIndex);
+		String resursa = stringu.substring(firstIndex+1, lastIndex);
+		String version = stringu.substring(lastIndex+1);
+		
+		System.out.println("metoda=" + metoda);
+		System.out.println("resursa=" + resursa);
+		System.out.println("version=" + version);
+		
+		String stringu2 = "Some-name: some-value";
+		int indexu = stringu2.indexOf(": ");
+		System.out.println("nume header: " + stringu2.substring(0, indexu));
+		System.out.println("value header: " + stringu2.substring(indexu + 2));
     }
 
 	enum MimeTypes {

@@ -55,18 +55,26 @@ public class HTTPProtocol {
 				return null;
 			}
 
-			String[] splitResult = line.split("\\s");
-
-			request.setMethod(splitResult[0]);
-			request.setResourceName(splitResult[1]);
-			request.setProtocolVersion(splitResult[2]);
+//			String[] splitResult = line.split("\\s");
+//			request.setMethod(splitResult[0]);
+//			request.setResourceName(splitResult[1]);
+//			request.setProtocolVersion(splitResult[2]);
+			
+			int firstIndex = line.indexOf(' ');
+			int lastIndex = line.lastIndexOf(' ');
+			
+			request.setMethod(line.substring(0, firstIndex));
+			request.setResourceName(line.substring(firstIndex+1, lastIndex));
+			request.setProtocolVersion(line.substring(lastIndex+1));
 
 			while (true) {
 				line = in.readLine();
 				logger.info(line);
 				if (line != null && !line.isEmpty()) {
-					splitResult = line.split(":\\s");
-					request.getHeaders().put(splitResult[0], splitResult[1]);
+//					splitResult = line.split(":\\s");
+//					request.getHeaders().put(splitResult[0], splitResult[1]);
+					int index = line.indexOf(": ");
+					request.getHeaders().put(line.substring(0, index), line.substring(index + 2));
 				} else {
 					break;
 				}
