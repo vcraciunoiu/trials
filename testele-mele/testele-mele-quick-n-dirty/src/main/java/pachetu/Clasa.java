@@ -1,61 +1,44 @@
 package pachetu;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 public class Clasa {
 
     public static void main(String[] args) {
-		String stringu = "GET /gigi.html HTTP/1.1";
-		
-		int firstIndex = stringu.indexOf(' ');
-		int lastIndex = stringu.lastIndexOf(' ');
-		
-		String metoda = stringu.substring(0, firstIndex);
-		String resursa = stringu.substring(firstIndex+1, lastIndex);
-		String version = stringu.substring(lastIndex+1);
-		
-		System.out.println("metoda=" + metoda);
-		System.out.println("resursa=" + resursa);
-		System.out.println("version=" + version);
-		
-		String stringu2 = "Some-name: some-value";
-		int indexu = stringu2.indexOf(": ");
-		System.out.println("nume header: " + stringu2.substring(0, indexu));
-		System.out.println("value header: " + stringu2.substring(indexu + 2));
+    	iteratorul();
     }
 
-	enum MimeTypes {
-		APPLICATION_FORM_URLENCODED ("application/x-www-form-urlencoded"),
-		APPLICATION_JSON ("application/json"),
-		APPLICATION_OCTET_STREAM ("application/octet-stream"),
-		APPLICATION_XML ("application/xml"),
-		MULTIPART_FORM_DATA ("multipart/form-data"),
-		html ("text/html"),
-		TEXT_PLAIN ("text/plain"),
-		TEXT_XML ("text/xml")
-		;
-		
-	    public String contentType;
-	    
-	    public String getContentType() {
-			return contentType;
-		}
-	    
-		MimeTypes(String contentType) { 
-	        this.contentType = contentType;
-	    }	
-	}
-	
-	private static String oMethoda() {
-		return someTrickyMethod();
-	}
+    private static void iteratorul() {
+    	List<Integer> list = new ArrayList<>();
+    	list.addAll(Arrays.asList(1,2,3));
 
-	private static String someTrickyMethod() throws IllegalArgumentException, NullPointerException {
-		if (1 == 1) {
-			throw new IllegalArgumentException("gigi");
-		}
-		
-		return "corect";
-	}
+    	Iterator<Integer> it = list.iterator();
+    	int k = Integer.MIN_VALUE; // k=0 also works because there are 2 list operation/cycle
+    	
+    	while(it.hasNext()) {
+    		System.out.println(it.next());
 
+    		while(k<Integer.MAX_VALUE) {
+    			list.remove(list.size() - 1);
+    			list.add(3);
+//    			System.out.println("k=" + k);
+    			k++;
+    		}
+
+    		System.out.println("k1=" + k);
+    		System.out.println("DONE");
+
+    		list.remove(0);
+    		list.add(4);
+
+    		k++;
+    		System.out.println("k2=" + k);
+    	}
+    }
+    
 	private static void testDisplayFriendlyDuration() {
 		long millis = 23456789;
                              
