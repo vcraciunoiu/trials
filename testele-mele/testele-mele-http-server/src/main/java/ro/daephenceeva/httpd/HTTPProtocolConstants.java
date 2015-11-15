@@ -12,6 +12,7 @@ public interface HTTPProtocolConstants {
 	
 	Integer HTTP_200_SUCCESS = 200;
 	Integer HTTP_400_BAD_REQUEST = 400;
+    Integer HTTP_403_FORBIDDEN = 403;
 	Integer HTTP_404_NOT_FOUND = 404;
 	Integer HTTP_405_METHOD_NOT_ALLOWED = 405;
 	Integer HTTP_415_UNKNOWN_CONTENT_TYPE = 415;
@@ -34,7 +35,8 @@ public interface HTTPProtocolConstants {
 		xml ("text/xml"),
 		zip ("application/zip"),
 		jpg ("image/jpeg"),
-		ico ("image/x-icon")
+		ico ("image/x-icon"),
+        java ("text/x-java-source, text/java")
 		// and others...
 		;
 		
