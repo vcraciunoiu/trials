@@ -7,7 +7,7 @@
 
 	<display-name>Some Spring Training</display-name>
 
-	<filter>
+	<!-- <filter>
 		<filter-name>MyPostFilter</filter-name>
 		<filter-class>org.vladcrc.MyPostFilter</filter-class>
 	</filter>
@@ -26,6 +26,17 @@
 	<servlet-mapping>
 		<servlet-name>gigi</servlet-name>
 		<url-pattern>/gigelu</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
+
+	<servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
 </web-app>
