@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.LinkedMultiValueMap;
@@ -24,14 +25,17 @@ import org.springframework.web.client.RestTemplate;
 public class Clasa {
 
     public static void main(String[] args) throws Exception {
-    	double gigi = 1234.56;
+    	String stringu = "false";
+    	String type;
     	
-//    	String numberFormatPattern = "#,##0.###";
-    	
-    	NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
-    	String formattedNumber = numberFormat.format(gigi);
-    	
-    	System.out.println(formattedNumber);
+		if ("true".equalsIgnoreCase(stringu) || "false".equalsIgnoreCase(stringu)) {
+			type = Boolean.class.getName();
+		} else {
+			type = String.class.getName();
+		}
+		
+		System.out.println(type);
+		
     }
     
     private static void serializationShit() throws Exception{
