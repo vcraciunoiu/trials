@@ -14,8 +14,6 @@ import java.util.logging.Level;
  */
 public class FilesystemReader implements ReadStrategy {
 
-//	private static final Logger logger = Logger.getLogger(FilesystemReader.class.getName());
-	
 	@Override
 	public Properties readPropertiesSource(String uri) {
 		MyLogger.log(Level.INFO, "We got the URI: " + uri);

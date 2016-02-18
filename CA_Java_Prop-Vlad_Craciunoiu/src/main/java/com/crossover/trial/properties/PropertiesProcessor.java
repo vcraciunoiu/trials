@@ -7,6 +7,13 @@ import java.util.Properties;
 
 import com.amazonaws.regions.Regions;
 
+/**
+ * This class processes the data sources. It reads from each source according to it's type
+ * and aggregates the properties in a Map.
+ * 
+ * @author vlad
+ *
+ */
 public class PropertiesProcessor {
 
 	private String uri;
@@ -20,6 +27,10 @@ public class PropertiesProcessor {
 		this.reader = reader;
 	}
 
+	/*
+	 * The main method of the properties processor.
+	 * It reads the source based on the read strategy which was previously set.
+	 */
 	public void processURI(Map<String, MyProperty> propertiesToDisplay) {
 		Properties propertiesFromSource = reader.readPropertiesSource(uri);
 		

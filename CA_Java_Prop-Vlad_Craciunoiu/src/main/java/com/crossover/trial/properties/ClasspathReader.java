@@ -27,11 +27,7 @@ public class ClasspathReader implements ReadStrategy {
 		
 		Properties properties = new Properties();
 		
-		try {
-			InputStream stream = this.getClass().getResourceAsStream(fileName);
-			
-			MyLogger.log(Level.INFO, "stream is: " + stream);
-			
+		try (final InputStream stream = this.getClass().getResourceAsStream(fileName)) {
 		    properties.load(stream);
 		} catch (IOException e) {
 			MyLogger.log(Level.SEVERE, "Error loading props: " + e.getMessage());
