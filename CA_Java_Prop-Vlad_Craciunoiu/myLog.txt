@@ -1,0 +1,82 @@
+Dec 09, 2015 1:14:37 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: jdbc.properties
+Dec 09, 2015 1:14:37 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: bc.properties
+Dec 09, 2015 1:14:37 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file bc.properties
+Dec 09, 2015 1:20:40 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: jdbc.properties
+Dec 09, 2015 1:20:40 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: bc.properties
+Dec 09, 2015 1:20:40 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file bc.properties
+Dec 09, 2015 1:22:36 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: jdbc.properties
+Dec 09, 2015 1:22:36 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: bc.properties
+Dec 09, 2015 1:22:36 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file bc.properties
+Dec 09, 2015 1:23:04 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: /jdbc.properties
+Dec 09, 2015 1:23:05 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: dbc.properties
+Dec 09, 2015 1:23:05 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file dbc.properties
+Dec 09, 2015 1:23:18 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: ../jdbc.properties
+Dec 09, 2015 1:23:18 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: /jdbc.properties
+Dec 09, 2015 1:23:18 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file /jdbc.properties
+Dec 09, 2015 1:27:27 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: ../jdbc.properties
+Dec 09, 2015 1:27:27 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: /jdbc.properties
+Dec 09, 2015 1:27:27 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file /jdbc.properties
+Dec 09, 2015 1:28:40 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: ../jdbc.properties
+Dec 09, 2015 1:28:40 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: /jdbc.properties
+Dec 09, 2015 1:28:40 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file /jdbc.properties
+Dec 09, 2015 1:31:16 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: ../jdbc.properties
+Dec 09, 2015 1:31:16 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: /jdbc.properties
+Dec 09, 2015 1:31:16 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file /jdbc.properties
+Dec 09, 2015 1:31:33 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: ../jdbc.properties
+Dec 09, 2015 1:31:33 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: /jdbc.properties
+Dec 09, 2015 1:31:33 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file /jdbc.properties
+Dec 09, 2015 1:32:08 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: ../jdbc.properties
+Dec 09, 2015 1:32:08 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: /jdbc.properties
+Dec 09, 2015 1:32:08 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file /jdbc.properties
+Dec 09, 2015 1:32:18 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: ../jdbc.properties
+Dec 09, 2015 1:32:18 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: /jdbc.properties
+Dec 09, 2015 1:32:18 PM com.crossover.trial.properties.MyLogger log
+SEVERE: Couldn't load properties from file /jdbc.properties
+Dec 09, 2015 1:32:35 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: file://T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
+Dec 09, 2015 1:32:35 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
+Dec 09, 2015 1:32:51 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: file://T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
+Dec 09, 2015 1:32:51 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
+Dec 09, 2015 1:33:06 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: file://T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
+Dec 09, 2015 1:33:06 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
+Dec 09, 2015 1:33:47 PM com.crossover.trial.properties.MyLogger log
+INFO: We got the URI: file://T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
+Dec 09, 2015 1:33:47 PM com.crossover.trial.properties.MyLogger log
+INFO: File name is: T:/git100/trials/CA_Java_Prop-Vlad_Craciunoiu/target/test-classes/jdbc.properties
